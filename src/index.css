@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -111,5 +111,24 @@
 
   .dark-section {
     @apply bg-[hsl(var(--dark-bg))] text-[hsl(var(--dark-foreground))];
+  }
+
+  .font-display {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .font-editorial {
+    font-family: 'Manrope', sans-serif;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .noise-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+      radial-gradient(circle at 20% 20%, rgba(240, 198, 116, 0.08), transparent 30%),
+      radial-gradient(circle at 80% 0%, rgba(96, 165, 250, 0.09), transparent 28%);
   }
 }

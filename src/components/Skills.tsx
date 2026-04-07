@@ -94,8 +94,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="mt-20"
-          className="text-center pt-4"
+          className="mt-20 pt-4 text-center"
         >
           <div className="mb-8">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">Work Process</h3>
