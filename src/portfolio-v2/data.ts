@@ -4,6 +4,8 @@ export const heroTape = [
   "Motion Direction",
   "Web Experiences",
   "Brand Storytelling",
+  "GSAP Transitions",
+  "3D Scroll Depth",
 ];
 
 export const featuredProjects = [
@@ -61,4 +63,43 @@ export const stats = [
   { value: "15+", label: "Case studies and product concepts" },
   { value: "3+", label: "Years shaping interface experiences" },
   { value: "100%", label: "Focus on modern, user-led design" },
+];
+
+export const toolStack = [
+  {
+    label: "Figma",
+    caption: "Systems",
+    src: "/Figma.svg",
+    position: { left: "2%", top: "12%" },
+  },
+  {
+    label: "HTML",
+    caption: "Structure",
+    src: "/html.svg",
+    position: { left: "72%", top: "8%" },
+  },
+  {
+    label: "CSS",
+    caption: "Styling",
+    src: "/css.svg",
+    position: { left: "78%", top: "42%" },
+  },
+  {
+    label: "XD",
+    caption: "Concepts",
+    src: "/adobe-xd.svg",
+    position: { left: "6%", top: "58%" },
+  },
+  {
+    label: "Photoshop",
+    caption: "Visuals",
+    src: "/photoshop.svg",
+    position: { left: "66%", top: "78%" },
+  },
+  {
+    label: "Lottie",
+    caption: "Motion",
+    src: "/lottiefiles.svg",
+    position: { left: "14%", top: "84%" },
+  },
 ];

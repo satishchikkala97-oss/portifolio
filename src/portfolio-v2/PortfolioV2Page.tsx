@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
-import { ArrowUpRight, Dot, Moon, Sparkles, Sun } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight, Moon, Sparkles, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import {
   featuredProjects,
   heroTape,
   services,
   stats,
+  toolStack,
 } from "./data";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 32 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.7, ease: "easeOut" as const },
-};
+gsap.registerPlugin(ScrollTrigger);
 
 const STORAGE_KEY = "portfolio-v2-theme";
 
 const themeStyles = {
   dark: {
     page: "bg-[#0d0d0d] text-white",
-    heroSection: "border-b border-white/10 noise-overlay",
-    heroGlow: "bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_38%)]",
+    heroSection: "border-b border-white/10 bg-[linear-gradient(180deg,#0e0e0f_0%,#121212_46%,#0c0c0c_100%)]",
+    heroGlow:
+      "bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_36%)]",
+    meshGlow:
+      "bg-[radial-gradient(circle_at_20%_20%,rgba(240,198,116,0.12),transparent_24%),radial-gradient(circle_at_80%_10%,rgba(72,168,255,0.1),transparent_24%)]",
     header: "border-b border-white/10 text-white/60",
     navLink: "hover:text-white",
     subtleButton: "border-white/15 hover:border-white/40 hover:text-white",
@@ -36,7 +36,7 @@ const themeStyles = {
       "border-white/15 text-white/75 hover:border-white/40 hover:text-white",
     tickerWrap: "border-y border-white/10 bg-[#111111]",
     tickerText: "text-white/55",
-    aboutAccent: "text-[#f0c674]",
+    accent: "text-[#f0c674]",
     statCard: "border-white/10 bg-white/[0.03]",
     statText: "text-white/60",
     workSection: "border-t border-white/10 bg-[#111111]",
@@ -55,13 +55,26 @@ const themeStyles = {
     footerText: "text-white/65",
     footerMeta: "text-white/58",
     toggleWrap: "border-white/10 bg-white/5",
-    toggleActive: "bg-white text-[#101010] shadow-[0_8px_30px_rgba(255,255,255,0.12)]",
+    toggleActive:
+      "bg-white text-[#101010] shadow-[0_8px_30px_rgba(255,255,255,0.12)]",
     toggleIdle: "text-white/58 hover:text-white",
+    heroPanel: "border-white/10 bg-white/[0.04]",
+    heroBackdrop: "from-white/10 via-white/5 to-white/0",
+    profileFrame:
+      "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] shadow-[0_30px_80px_rgba(0,0,0,0.45)]",
+    profileRing: "border-white/10",
+    floatingCard:
+      "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] text-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.32)]",
+    visualLabel: "border-white/10 bg-black/25 text-white/55",
   },
   light: {
     page: "bg-[#f5f1e8] text-[#151515]",
-    heroSection: "border-b border-black/10 bg-[linear-gradient(180deg,#fcfaf5_0%,#efe8d8_100%)]",
-    heroGlow: "bg-[radial-gradient(circle_at_top,rgba(240,198,116,0.18),transparent_36%)]",
+    heroSection:
+      "border-b border-black/10 bg-[linear-gradient(180deg,#fcfaf5_0%,#efe8d8_50%,#f5efe4_100%)]",
+    heroGlow:
+      "bg-[radial-gradient(circle_at_top,rgba(240,198,116,0.18),transparent_36%)]",
+    meshGlow:
+      "bg-[radial-gradient(circle_at_18%_18%,rgba(201,145,52,0.14),transparent_22%),radial-gradient(circle_at_82%_14%,rgba(114,153,215,0.14),transparent_24%)]",
     header: "border-b border-black/10 text-black/55",
     navLink: "hover:text-black",
     subtleButton: "border-black/15 hover:border-black/35 hover:text-black",
@@ -74,7 +87,7 @@ const themeStyles = {
       "border-black/15 text-black/70 hover:border-black/35 hover:text-black",
     tickerWrap: "border-y border-black/10 bg-[#ece3d2]",
     tickerText: "text-black/50",
-    aboutAccent: "text-[#9a6b2f]",
+    accent: "text-[#9a6b2f]",
     statCard: "border-black/10 bg-white/60",
     statText: "text-black/55",
     workSection: "border-t border-black/10 bg-[#efe7d8]",
@@ -93,13 +106,29 @@ const themeStyles = {
     footerText: "text-black/62",
     footerMeta: "text-black/55",
     toggleWrap: "border-black/10 bg-white/70",
-    toggleActive: "bg-[#151515] text-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
+    toggleActive:
+      "bg-[#151515] text-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
     toggleIdle: "text-black/55 hover:text-black",
+    heroPanel: "border-black/10 bg-white/55",
+    heroBackdrop: "from-[#f2e7d3] via-white/40 to-transparent",
+    profileFrame:
+      "border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(255,255,255,0.52))] shadow-[0_28px_70px_rgba(135,106,52,0.18)]",
+    profileRing: "border-black/10",
+    floatingCard:
+      "border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.7))] text-black/75 shadow-[0_18px_40px_rgba(93,72,37,0.14)]",
+    visualLabel: "border-black/10 bg-white/65 text-black/50",
   },
 } as const;
 
 const PortfolioV2Page = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const rootRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const introRef = useRef<HTMLDivElement | null>(null);
+  const profileSceneRef = useRef<HTMLDivElement | null>(null);
+  const profileCardRef = useRef<HTMLDivElement | null>(null);
+  const toolRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem(STORAGE_KEY);
@@ -109,8 +138,7 @@ const PortfolioV2Page = () => {
       return;
     }
 
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(prefersDark ? "dark" : "light");
+    setTheme("light");
   }, []);
 
   const handleThemeChange = (nextTheme: "light" | "dark") => {
@@ -119,13 +147,165 @@ const PortfolioV2Page = () => {
   };
 
   const styles = themeStyles[theme];
+  const repeatedTape = useMemo(() => [...heroTape, ...heroTape, ...heroTape], []);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) {
+        return;
+      }
+
+      const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+      heroTimeline
+        .fromTo(
+          "[data-gsap='header']",
+          { y: -24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8 },
+        )
+        .fromTo(
+          "[data-gsap='eyebrow']",
+          { y: 26, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7 },
+          "-=0.45",
+        )
+        .fromTo(
+          "[data-gsap='title-line']",
+          { yPercent: 110, opacity: 0, rotateX: -18 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            rotateX: 0,
+            duration: 1.1,
+            stagger: 0.08,
+          },
+          "-=0.38",
+        )
+        .fromTo(
+          "[data-gsap='intro-copy']",
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.12 },
+          "-=0.72",
+        )
+        .fromTo(
+          profileCardRef.current,
+          { y: 40, opacity: 0, rotateY: -10, rotateX: 8, scale: 0.96 },
+          { y: 0, opacity: 1, rotateY: 0, rotateX: 0, scale: 1, duration: 1.1 },
+          "-=0.78",
+        )
+        .fromTo(
+          toolRefs.current.filter(Boolean),
+          { opacity: 0, scale: 0.7, y: 30, rotate: -8 },
+          { opacity: 1, scale: 1, y: 0, rotate: 0, duration: 0.8, stagger: 0.07 },
+          "-=0.78",
+        );
+
+      if (profileSceneRef.current && profileCardRef.current) {
+        gsap.to(profileCardRef.current, {
+          yPercent: -10,
+          rotateY: 8,
+          rotateX: 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        gsap.to(profileSceneRef.current, {
+          yPercent: -8,
+          scale: 1.03,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      toolRefs.current.forEach((tool, index) => {
+        if (!tool) return;
+
+        gsap.to(tool, {
+          y: index % 2 === 0 ? -18 : 18,
+          x: index % 2 === 0 ? 10 : -10,
+          rotate: index % 2 === 0 ? 5 : -5,
+          repeat: -1,
+          yoyo: true,
+          duration: 2.8 + index * 0.25,
+          ease: "sine.inOut",
+        });
+
+        gsap.to(tool, {
+          yPercent: -24 - index * 3,
+          scale: 0.96 + index * 0.012,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element, index) => {
+        gsap.fromTo(
+          element,
+          { y: 42, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: "power3.out",
+            delay: index % 3 === 0 ? 0 : 0.05,
+            scrollTrigger: {
+              trigger: element,
+              start: "top 84%",
+            },
+          },
+        );
+      });
+
+      gsap.to("[data-gsap='ticker']", {
+        xPercent: -50,
+        ease: "none",
+        duration: 20,
+        repeat: -1,
+      });
+    }, rootRef);
+
+    return () => ctx.revert();
+  }, [theme]);
 
   return (
-    <main className={cn("min-h-screen transition-colors duration-500", styles.page)}>
-      <section className={cn("relative overflow-hidden transition-colors duration-500", styles.heroSection, theme === "dark" && "noise-overlay")}>
+    <main
+      ref={rootRef}
+      className={cn("min-h-screen transition-colors duration-500", styles.page)}
+    >
+      <section
+        ref={heroRef}
+        className={cn(
+          "relative overflow-hidden transition-colors duration-500",
+          styles.heroSection,
+        )}
+      >
         <div className={cn("absolute inset-0 transition-colors duration-500", styles.heroGlow)} />
+        <div className={cn("absolute inset-0 transition-colors duration-500", styles.meshGlow)} />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/10 to-transparent dark:from-black/10" />
+
         <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 pb-10 pt-6 md:px-10 lg:px-16">
-          <header className={cn("mb-14 flex items-center justify-between pb-5 text-sm uppercase tracking-[0.28em] transition-colors duration-500", styles.header)}>
+          <header
+            data-gsap="header"
+            className={cn(
+              "mb-14 flex items-center justify-between pb-5 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
+              styles.header,
+            )}
+          >
             <span>Portfolio V2</span>
             <nav className="hidden gap-8 md:flex">
               <a href="#work" className={cn("transition", styles.navLink)}>
@@ -182,76 +362,178 @@ const PortfolioV2Page = () => {
             </div>
           </header>
 
-          <div className="grid flex-1 items-end gap-14 pb-12 lg:grid-cols-[1.25fr_0.75fr]">
-            <motion.div {...fadeUp} className="max-w-4xl">
-              <div className={cn("mb-6 inline-flex items-center gap-3 rounded-full border px-4 py-2 text-xs uppercase tracking-[0.24em] transition-colors duration-500", styles.badge)}>
+          <div className="grid flex-1 items-center gap-16 pb-14 lg:grid-cols-[1fr_0.95fr]">
+            <div ref={introRef} className="max-w-4xl">
+              <div
+                data-gsap="eyebrow"
+                className={cn(
+                  "mb-6 inline-flex items-center gap-3 rounded-full border px-4 py-2 text-xs uppercase tracking-[0.24em] transition-colors duration-500",
+                  styles.badge,
+                )}
+              >
                 <span className="h-2 w-2 rounded-full bg-[#f0c674]" />
                 Available for select freelance projects
               </div>
-              <p className={cn("mb-5 font-editorial text-sm uppercase tracking-[0.35em] transition-colors duration-500", styles.eyebrow)}>
+              <p
+                data-gsap="intro-copy"
+                className={cn(
+                  "mb-5 font-editorial text-sm uppercase tracking-[0.35em] transition-colors duration-500",
+                  styles.eyebrow,
+                )}
+              >
                 Satish Chikkala / UI UX Designer
               </p>
-              <h1 className="font-display text-[4rem] uppercase leading-[0.9] tracking-[-0.05em] text-balance sm:text-[5.5rem] md:text-[7.5rem] lg:text-[9rem]">
-                Building
-                <br />
-                digital
-                <br />
-                presence
+              <h1
+                ref={headingRef}
+                className="font-display text-[4rem] uppercase leading-[0.88] tracking-[-0.06em] text-balance sm:text-[5.5rem] md:text-[7.1rem] lg:text-[8.8rem]"
+              >
+                <span className="block overflow-hidden">
+                  <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
+                    Designing
+                  </span>
+                </span>
+                <span className="block overflow-hidden">
+                  <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
+                    motion-rich
+                  </span>
+                </span>
+                <span className="block overflow-hidden">
+                  <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
+                    digital stories
+                  </span>
+                </span>
               </h1>
-              <p className={cn("mt-8 max-w-xl font-editorial text-lg leading-8 transition-colors duration-500 md:text-xl", styles.body)}>
-                A sharper portfolio direction inspired by high-end studio sites:
-                immersive, confident, and built to make design thinking feel tangible.
+              <p
+                data-gsap="intro-copy"
+                className={cn(
+                  "mt-8 max-w-xl font-editorial text-lg leading-8 transition-colors duration-500 md:text-xl",
+                  styles.body,
+                )}
+              >
+                The light-first version now leads with a more tactile motion language:
+                cinematic entrances, scroll depth, and a hero composition that makes
+                your tools feel like they orbit the craft behind the work.
               </p>
-            </motion.div>
-
-            <motion.div
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: 0.12 }}
-              className="flex flex-col gap-8 lg:items-end"
-            >
-              <div className={cn("max-w-sm rounded-[2rem] border p-6 backdrop-blur-sm transition-colors duration-500", styles.card)}>
-                <div className={cn("mb-16 flex items-center justify-between text-sm transition-colors duration-500", styles.cardMeta)}>
-                  <span>Creative profile</span>
-                  <Sparkles className="h-4 w-4 text-[#f0c674]" />
+              <div data-gsap="intro-copy" className="mt-10 flex flex-wrap gap-4">
+                <a
+                  href="#work"
+                  className={cn(
+                    "group inline-flex items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition",
+                    styles.secondaryAction,
+                  )}
+                >
+                  Explore selected work
+                  <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+                <div
+                  className={cn(
+                    "rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500",
+                    styles.visualLabel,
+                  )}
+                >
+                  GSAP-powered motion system
                 </div>
-                <p className="font-display text-3xl uppercase leading-tight">
-                  Premium interactions.
-                  <br />
-                  Human-centered systems.
-                </p>
-                <p className={cn("mt-5 font-editorial leading-7 transition-colors duration-500", styles.articleBody)}>
-                  Focused on product storytelling, visual depth, and interfaces that
-                  feel as considered as the brand behind them.
-                </p>
+              </div>
+            </div>
+
+            <div
+              ref={profileSceneRef}
+              className="relative mx-auto flex w-full max-w-[34rem] items-center justify-center [perspective:1600px]"
+            >
+              <div
+                className={cn(
+                  "absolute inset-[10%] rounded-full bg-gradient-to-br blur-3xl transition-colors duration-500",
+                  styles.heroBackdrop,
+                )}
+              />
+              <div
+                className={cn(
+                  "absolute inset-[8%] rounded-[2.8rem] border backdrop-blur-sm transition-colors duration-500",
+                  styles.heroPanel,
+                )}
+              />
+              <div
+                ref={profileCardRef}
+                className={cn(
+                  "relative z-10 w-[72%] rounded-[2rem] border p-4 [transform-style:preserve-3d] transition-colors duration-500",
+                  styles.profileFrame,
+                )}
+              >
+                <div
+                  className={cn(
+                    "overflow-hidden rounded-[1.6rem] border transition-colors duration-500",
+                    styles.profileRing,
+                  )}
+                >
+                  <img
+                    src="/profile.jpg"
+                    alt="Satish portrait"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    "absolute bottom-5 left-5 rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.24em] transition-colors duration-500",
+                    styles.visualLabel,
+                  )}
+                >
+                  Interface craft / motion-first
+                </div>
               </div>
 
-              <a
-                href="#work"
-                className={cn("group inline-flex items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition", styles.secondaryAction)}
-              >
-                Explore selected work
-                <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-            </motion.div>
+              {toolStack.map((tool, index) => (
+                <div
+                  key={tool.label}
+                  ref={(node) => {
+                    toolRefs.current[index] = node;
+                  }}
+                  className="absolute z-20 [transform-style:preserve-3d]"
+                  style={{
+                    left: tool.position.left,
+                    top: tool.position.top,
+                  }}
+                >
+                  <div
+                    className={cn(
+                      "flex items-center gap-3 rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors duration-500",
+                      styles.floatingCard,
+                    )}
+                  >
+                    <img
+                      src={tool.src}
+                      alt={tool.label}
+                      className="h-10 w-10 rounded-xl object-contain"
+                    />
+                    <div className="min-w-[6rem]">
+                      <p className="text-sm font-semibold uppercase tracking-[0.16em]">
+                        {tool.label}
+                      </p>
+                      <p className="mt-0.5 text-[10px] uppercase tracking-[0.2em] opacity-70">
+                        {tool.caption}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className={cn("py-4 transition-colors duration-500", styles.tickerWrap)}>
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 22, ease: "linear", repeat: Infinity }}
-            className="flex w-max items-center"
-          >
-            {[...heroTape, ...heroTape, ...heroTape].map((item, index) => (
+        <div className={cn("overflow-hidden py-4 transition-colors duration-500", styles.tickerWrap)}>
+          <div data-gsap="ticker" className="flex w-max items-center">
+            {repeatedTape.map((item, index) => (
               <div
                 key={`${item}-${index}`}
-                className={cn("flex items-center whitespace-nowrap px-6 text-sm uppercase tracking-[0.28em] transition-colors duration-500", styles.tickerText)}
+                className={cn(
+                  "flex items-center whitespace-nowrap px-6 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
+                  styles.tickerText,
+                )}
               >
-                <Dot className="mr-3 h-5 w-5 text-[#f0c674]" />
+                <Sparkles className="mr-3 h-4 w-4 text-[#f0c674]" />
                 {item}
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -259,52 +541,77 @@ const PortfolioV2Page = () => {
         id="about"
         className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-20 md:px-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-16 lg:py-28"
       >
-        <motion.div {...fadeUp}>
-          <p className={cn("mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500", styles.aboutAccent)}>
+        <div data-reveal>
+          <p
+            className={cn(
+              "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+              styles.accent,
+            )}
+          >
             About the direction
           </p>
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-            More cinematic.
+            Motion with
             <br />
-            Less template.
+            more intent.
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          {...fadeUp}
-          transition={{ ...fadeUp.transition, delay: 0.1 }}
-          className="grid gap-8"
-        >
-          <p className={cn("max-w-2xl font-editorial text-lg leading-8 transition-colors duration-500", styles.body)}>
-            This version pushes the portfolio toward a more editorial and
-            immersive style. The layout uses strong pacing, oversized type,
-            restrained color, and clear content blocks to create the same
-            premium energy as the reference while still feeling personal to your
-            work.
+        <div data-reveal className="grid gap-8">
+          <p
+            className={cn(
+              "max-w-2xl font-editorial text-lg leading-8 transition-colors duration-500",
+              styles.body,
+            )}
+          >
+            Rather than treating animation as decoration, this version makes it part
+            of the storytelling system. The hero stages your presence, the tools move
+            in layered depth, and each section enters with calmer timing so the page
+            feels authored instead of templated.
           </p>
           <div className="grid gap-4 sm:grid-cols-3">
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className={cn("rounded-[1.75rem] border p-5 transition-colors duration-500", styles.statCard)}
+                data-reveal
+                className={cn(
+                  "rounded-[1.75rem] border p-5 transition-colors duration-500",
+                  styles.statCard,
+                )}
               >
-                <p className="font-display text-4xl tracking-[-0.06em] text-[#f5deb3]">
+                <p className="font-display text-4xl tracking-[-0.06em] text-[#c99134]">
                   {stat.value}
                 </p>
-                <p className={cn("mt-3 font-editorial text-sm leading-6 transition-colors duration-500", styles.statText)}>
+                <p
+                  className={cn(
+                    "mt-3 font-editorial text-sm leading-6 transition-colors duration-500",
+                    styles.statText,
+                  )}
+                >
                   {stat.label}
                 </p>
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      <section id="work" className={cn("transition-colors duration-500", styles.workSection)}>
+      <section
+        id="work"
+        className={cn("transition-colors duration-500", styles.workSection)}
+      >
         <div className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-          <motion.div {...fadeUp} className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div
+            data-reveal
+            className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          >
             <div>
-              <p className={cn("mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500", styles.aboutAccent)}>
+              <p
+                className={cn(
+                  "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+                  styles.accent,
+                )}
+              >
                 Selected work
               </p>
               <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
@@ -313,21 +620,33 @@ const PortfolioV2Page = () => {
                 projects
               </h2>
             </div>
-            <p className={cn("max-w-md font-editorial leading-7 transition-colors duration-500", styles.workCopy)}>
-              Structured to feel like case-study snapshots: strong visuals, clear
-              context, and enough detail to signal process and polish.
+            <p
+              className={cn(
+                "max-w-md font-editorial leading-7 transition-colors duration-500",
+                styles.workCopy,
+              )}
+            >
+              Structured as polished case-study previews with clearer pacing, image
+              weight, and room for motion-led transitions into deeper project pages.
             </p>
-          </motion.div>
+          </div>
 
           <div className="space-y-8">
-            {featuredProjects.map((project, index) => (
-              <motion.article
+            {featuredProjects.map((project) => (
+              <article
                 key={project.title}
-                {...fadeUp}
-                transition={{ ...fadeUp.transition, delay: index * 0.08 }}
-                className={cn("grid gap-6 rounded-[2rem] border p-4 transition-colors duration-500 md:grid-cols-[1.1fr_0.9fr] md:p-6", styles.article)}
+                data-reveal
+                className={cn(
+                  "grid gap-6 rounded-[2rem] border p-4 transition-colors duration-500 md:grid-cols-[1.1fr_0.9fr] md:p-6",
+                  styles.article,
+                )}
               >
-                <div className={cn("overflow-hidden rounded-[1.5rem] border transition-colors duration-500", styles.articleImage)}>
+                <div
+                  className={cn(
+                    "overflow-hidden rounded-[1.5rem] border transition-colors duration-500",
+                    styles.articleImage,
+                  )}
+                >
                   <img
                     src={project.image}
                     alt={project.title}
@@ -336,42 +655,70 @@ const PortfolioV2Page = () => {
                 </div>
                 <div className="flex flex-col justify-between gap-8 p-2 md:p-4">
                   <div>
-                    <p className={cn("mb-3 text-sm uppercase tracking-[0.28em] transition-colors duration-500", styles.articleMeta)}>
+                    <p
+                      className={cn(
+                        "mb-3 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
+                        styles.articleMeta,
+                      )}
+                    >
                       {project.year} / {project.category}
                     </p>
                     <h3 className="font-display text-3xl uppercase leading-none tracking-[-0.04em] md:text-5xl">
                       {project.title}
                     </h3>
-                    <p className={cn("mt-5 max-w-lg font-editorial leading-7 transition-colors duration-500", styles.articleBody)}>
+                    <p
+                      className={cn(
+                        "mt-5 max-w-lg font-editorial leading-7 transition-colors duration-500",
+                        styles.articleBody,
+                      )}
+                    >
                       {project.summary}
                     </p>
                   </div>
-                  <div className={cn("flex flex-col gap-5 border-t pt-5 transition-colors duration-500", styles.divider)}>
+                  <div
+                    className={cn(
+                      "flex flex-col gap-5 border-t pt-5 transition-colors duration-500",
+                      styles.divider,
+                    )}
+                  >
                     <div className="flex flex-wrap gap-2">
                       {project.deliverables.map((item) => (
                         <span
                           key={item}
-                          className={cn("rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors duration-500", styles.tag)}
+                          className={cn(
+                            "rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors duration-500",
+                            styles.tag,
+                          )}
                         >
                           {item}
                         </span>
                       ))}
                     </div>
-                    <button className={cn("inline-flex w-fit items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.22em] transition", styles.actionButton)}>
+                    <button
+                      className={cn(
+                        "inline-flex w-fit items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.22em] transition",
+                        styles.actionButton,
+                      )}
+                    >
                       View project details
                       <ArrowUpRight className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-        <motion.div {...fadeUp} className="mb-12 max-w-3xl">
-          <p className={cn("mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500", styles.aboutAccent)}>
+        <div data-reveal className="mb-12 max-w-3xl">
+          <p
+            className={cn(
+              "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+              styles.accent,
+            )}
+          >
             What this version highlights
           </p>
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
@@ -379,33 +726,53 @@ const PortfolioV2Page = () => {
             <br />
             elevated offer
           </h2>
-        </motion.div>
+        </div>
         <div className="grid gap-5 md:grid-cols-3">
-          {services.map((service, index) => (
-            <motion.div
+          {services.map((service) => (
+            <div
               key={service.title}
-              {...fadeUp}
-              transition={{ ...fadeUp.transition, delay: index * 0.08 }}
-              className={cn("rounded-[1.8rem] border p-6 transition-colors duration-500", styles.serviceCard)}
+              data-reveal
+              className={cn(
+                "rounded-[1.8rem] border p-6 transition-colors duration-500",
+                styles.serviceCard,
+              )}
             >
-              <p className={cn("mb-14 text-sm uppercase tracking-[0.32em] transition-colors duration-500", styles.serviceIndex)}>
+              <p
+                className={cn(
+                  "mb-14 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+                  styles.serviceIndex,
+                )}
+              >
                 {service.index}
               </p>
               <h3 className="font-display text-3xl uppercase leading-none tracking-[-0.04em]">
                 {service.title}
               </h3>
-              <p className={cn("mt-5 font-editorial leading-7 transition-colors duration-500", styles.articleBody)}>
+              <p
+                className={cn(
+                  "mt-5 font-editorial leading-7 transition-colors duration-500",
+                  styles.articleBody,
+                )}
+              >
                 {service.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
-      <footer id="contact" className={cn("transition-colors duration-500", styles.footer)}>
+      <footer
+        id="contact"
+        className={cn("transition-colors duration-500", styles.footer)}
+      >
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 md:px-10 lg:flex-row lg:items-end lg:justify-between lg:px-16 lg:py-20">
-          <motion.div {...fadeUp} className="max-w-3xl">
-            <p className={cn("mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500", styles.aboutAccent)}>
+          <div data-reveal className="max-w-3xl">
+            <p
+              className={cn(
+                "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+                styles.accent,
+              )}
+            >
               Contact
             </p>
             <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
@@ -413,16 +780,24 @@ const PortfolioV2Page = () => {
               <br />
               the next version.
             </h2>
-            <p className={cn("mt-6 max-w-xl font-editorial text-lg leading-8 transition-colors duration-500", styles.footerText)}>
-              If you want, I can also make this `portfolio-v2` the new homepage
-              and connect each project card to real case-study pages next.
+            <p
+              className={cn(
+                "mt-6 max-w-xl font-editorial text-lg leading-8 transition-colors duration-500",
+                styles.footerText,
+              )}
+            >
+              The motion foundation is now ready for deeper transitions too, like
+              project page reveals, cursor-follow interactions, or scroll-linked
+              storytelling between sections.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.1 }}
-            className={cn("flex flex-col items-start gap-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500", styles.footerMeta)}
+          <div
+            data-reveal
+            className={cn(
+              "flex flex-col items-start gap-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500",
+              styles.footerMeta,
+            )}
           >
             <a href="mailto:satish@example.com" className={cn("transition", styles.navLink)}>
               satish@example.com
@@ -431,7 +806,7 @@ const PortfolioV2Page = () => {
               +91 00000 00000
             </a>
             <span>Based in India</span>
-          </motion.div>
+          </div>
         </div>
       </footer>
     </main>
