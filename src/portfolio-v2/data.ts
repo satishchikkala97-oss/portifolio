@@ -11,30 +11,43 @@ export const heroTape = [
 export const featuredProjects = [
   {
     year: "2025",
-    title: "HealthSpan Experience Platform",
-    category: "UX Strategy / Product Design",
-    image: "/work.jpg",
+    title: "Aayu Mobile App",
+    category: "Mobile App / Healthcare / UI UX",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=1200&fit=crop",
     summary:
-      "A premium digital experience for a preventive healthcare brand, designed to turn dense wellness information into a guided, conversion-focused journey.",
-    deliverables: ["Research synthesis", "Interface design", "Prototype direction"],
+      "A comprehensive healthcare mobile application designed to connect patients with doctors, manage appointments, and track health records seamlessly.",
+    deliverables: ["Mobile App", "Healthcare", "UI/UX"],
   },
   {
     year: "2024",
-    title: "Founder Portfolio Identity",
-    category: "Brand Direction / Web Design",
+    title: "Health Span Life Span",
+    category: "Web Design / Mobile / Health Tech",
+    image:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&h=1200&fit=crop",
+    summary:
+      "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
+    deliverables: ["Web Design", "Mobile", "Health Tech"],
+  },
+  {
+    year: "2024",
+    title: "Branding Logo Design",
+    category: "Branding / Logo / Identity",
     image: "/Brand.jpg",
     summary:
-      "A minimal but expressive visual system for a solo founder, balancing credibility with personality through typography, pacing, and clear case-study storytelling.",
-    deliverables: ["Art direction", "Visual language", "Responsive web layouts"],
+      "Creative logo design and brand identity projects for various startups and businesses, establishing strong visual foundations.",
+    deliverables: ["Branding", "Logo", "Identity"],
+    href: "https://www.behance.net/gallery/239601115/Logo-Case-Study",
   },
   {
     year: "2024",
-    title: "Aayu Care Mobile Flows",
-    category: "Mobile Product / Design Systems",
-    image: "/profilee.jpg",
+    title: "Health Span Life Span",
+    category: "Web Design / Mobile / Health Tech",
+    image:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&h=1200&fit=crop",
     summary:
-      "A mobile-first care experience shaped around reassurance and speed, with modular UI patterns to support onboarding, scheduling, and personalized health pathways.",
-    deliverables: ["User flows", "Component thinking", "Interaction polish"],
+      "A second concept direction exploring the same wellness space through responsive storytelling, product pacing, and conversion-friendly UX decisions.",
+    deliverables: ["Responsive UX", "Visual Design", "Product Thinking"],
   },
 ];
 
@@ -47,22 +60,78 @@ export const services = [
   },
   {
     index: "02",
-    title: "Design Direction",
+    title: "Mobile & Web Design",
     description:
-      "A sharper visual point of view for brands that want to feel more premium, modern, and memorable.",
+      "Responsive experiences for mobile apps, websites, and platforms designed to feel intuitive across every touchpoint.",
   },
   {
     index: "03",
-    title: "Interaction Thinking",
+    title: "Prototyping & Systems",
     description:
-      "Micro and macro moments that make the experience feel more alive without becoming distracting.",
+      "Interactive flows, scalable components, and thoughtful handoff that help ideas move smoothly into development.",
   },
 ];
 
 export const stats = [
-  { value: "15+", label: "Case studies and product concepts" },
-  { value: "3+", label: "Years shaping interface experiences" },
-  { value: "100%", label: "Focus on modern, user-led design" },
+  { value: "1+", label: "Year in UI/UX design" },
+  { value: "B.Tech", label: "Computer Science background" },
+  { value: "End-to-End", label: "Mobile and web design focus" },
+];
+
+export const aboutCopy = [
+  "I’m a UI/UX Designer focused on building scalable, user-centered digital experiences that align user needs with business goals. I specialize in turning complex, ambiguous problems into clear, intuitive design solutions using strong design fundamentals and strategic thinking.",
+  "I work across mobile apps, responsive websites, and web platforms, collaborating closely with product, engineering, and stakeholders to deliver end-to-end, accessible, and future-ready experiences that create meaningful user impact and long-term product value.",
+];
+
+export const skills = [
+  { icon: "/Figma.svg", label: "Figma" },
+  { icon: "/adobe-xd.svg", label: "Adobe XD" },
+  { icon: "/photoshop.svg", label: "Photoshop" },
+  { icon: "/lottiefiles.svg", label: "Lottie" },
+  { icon: "/html.svg", label: "HTML" },
+  { icon: "/css.svg", label: "CSS" },
+];
+
+export const processSteps = [
+  {
+    num: "01",
+    title: "Research",
+    desc: "I begin by understanding the user's needs, project goals, and target audience. This stage involves collecting insights, studying competitors, and defining key problems to solve.",
+  },
+  {
+    num: "02",
+    title: "Wireframe",
+    desc: "Next, I create low-fidelity sketches and layouts to map out user flows. This helps visualize the structure and ensure every element supports usability and function.",
+  },
+  {
+    num: "03",
+    title: "Design",
+    desc: "Using Figma and design systems, I bring ideas to life with clean visuals, color palettes, and typography, focusing on clarity, consistency, and modern aesthetics.",
+  },
+  {
+    num: "04",
+    title: "Feedback",
+    desc: "I collaborate with teammates and mentors to review designs, refine user journeys, and improve visual hierarchy based on feedback and usability insights.",
+  },
+  {
+    num: "05",
+    title: "Prototype",
+    desc: "Finally, I create interactive prototypes to simulate real user experiences. These help test interactions, improve engagement, and prepare the design for development handoff.",
+  },
+];
+
+export const contactInfo = [
+  { label: "Email", value: "satishchikkala97@gmail.com", href: "mailto:satishchikkala97@gmail.com" },
+  { label: "Phone", value: "+91 8096949567", href: "tel:+918096949567" },
+  { label: "Location", value: "Amalapuram, India" },
+  { label: "LinkedIn", value: "linkedin.com/in/satish-chikkala", href: "https://linkedin.com/in/satish-chikkala" },
+];
+
+export const socialLinks = [
+  { label: "LinkedIn", href: "https://linkedin.com/in/satish-chikkala" },
+  { label: "Behance", href: "https://behance.net" },
+  { label: "Dribbble", href: "https://dribbble.com" },
+  { label: "GitHub", href: "https://github.com" },
 ];
 
 export const toolStack = [

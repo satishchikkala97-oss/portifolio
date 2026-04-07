@@ -5,9 +5,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import {
+  aboutCopy,
+  contactInfo,
   featuredProjects,
   heroTape,
+  processSteps,
   services,
+  skills,
+  socialLinks,
   stats,
   toolStack,
 } from "./data";
@@ -54,6 +59,7 @@ const themeStyles = {
     footer: "border-t border-white/10 bg-[#0a0a0a]",
     footerText: "text-white/65",
     footerMeta: "text-white/58",
+    mutedCard: "border-white/10 bg-white/[0.03]",
     toggleWrap: "border-white/10 bg-white/5",
     toggleActive:
       "bg-white text-[#101010] shadow-[0_8px_30px_rgba(255,255,255,0.12)]",
@@ -105,6 +111,7 @@ const themeStyles = {
     footer: "border-t border-black/10 bg-[#e8dece]",
     footerText: "text-black/62",
     footerMeta: "text-black/55",
+    mutedCard: "border-black/10 bg-white/60",
     toggleWrap: "border-black/10 bg-white/70",
     toggleActive:
       "bg-[#151515] text-white shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
@@ -381,7 +388,7 @@ const PortfolioV2Page = () => {
                   styles.eyebrow,
                 )}
               >
-                Satish Chikkala / UI UX Designer
+                Hello I&apos;m / Satish Chikkala / UI UX Designer
               </p>
               <h1
                 ref={headingRef}
@@ -410,9 +417,9 @@ const PortfolioV2Page = () => {
                   styles.body,
                 )}
               >
-                The light-first version now leads with a more tactile motion language:
-                cinematic entrances, scroll depth, and a hero composition that makes
-                your tools feel like they orbit the craft behind the work.
+                A passionate UI/UX designer focused on growth, innovation, and
+                human-centered design. I create seamless digital journeys that move
+                ideas into action.
               </p>
               <div data-gsap="intro-copy" className="mt-10 flex flex-wrap gap-4">
                 <a
@@ -551,24 +558,26 @@ const PortfolioV2Page = () => {
             About the direction
           </p>
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-            Motion with
+            About
             <br />
-            more intent.
+            me.
           </h2>
         </div>
 
         <div data-reveal className="grid gap-8">
-          <p
-            className={cn(
-              "max-w-2xl font-editorial text-lg leading-8 transition-colors duration-500",
-              styles.body,
-            )}
-          >
-            Rather than treating animation as decoration, this version makes it part
-            of the storytelling system. The hero stages your presence, the tools move
-            in layered depth, and each section enters with calmer timing so the page
-            feels authored instead of templated.
-          </p>
+          <div className="grid gap-5">
+            {aboutCopy.map((paragraph) => (
+              <p
+                key={paragraph}
+                className={cn(
+                  "max-w-2xl font-editorial text-lg leading-8 transition-colors duration-500",
+                  styles.body,
+                )}
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {stats.map((stat) => (
               <div
@@ -592,6 +601,114 @@ const PortfolioV2Page = () => {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
+        <div data-reveal className="mb-12 max-w-3xl">
+          <p
+            className={cn(
+              "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+              styles.accent,
+            )}
+          >
+            Skills
+          </p>
+          <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
+            My
+            <br />
+            skills
+          </h2>
+          <p
+            className={cn(
+              "mt-6 max-w-2xl font-editorial text-lg leading-8 transition-colors duration-500",
+              styles.body,
+            )}
+          >
+            A comprehensive toolkit for creating exceptional digital experiences.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          {skills.map((skill) => (
+            <div
+              key={skill.label}
+              data-reveal
+              className={cn(
+                "flex flex-col items-center rounded-[1.7rem] border px-5 py-7 text-center transition-colors duration-500",
+                styles.mutedCard,
+              )}
+            >
+              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f0c674]/10">
+                <img
+                  src={skill.icon}
+                  alt={skill.label}
+                  className="h-8 w-8 object-contain"
+                />
+              </div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em]">
+                {skill.label}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className={cn("transition-colors duration-500", styles.workSection)}
+      >
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-20 md:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-28">
+          <div data-reveal className="relative overflow-hidden rounded-[2rem] border border-current/10">
+            <img
+              src="/work.jpg"
+              alt="Work process"
+              className="h-full min-h-[24rem] w-full object-cover"
+            />
+          </div>
+          <div>
+            <div data-reveal className="mb-10">
+              <p
+                className={cn(
+                  "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
+                  styles.accent,
+                )}
+              >
+                Work process
+              </p>
+              <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
+                From research
+                <br />
+                to reality
+              </h2>
+            </div>
+            <div className="space-y-6">
+              {processSteps.map((step) => (
+                <div
+                  key={step.num}
+                  data-reveal
+                  className={cn(
+                    "rounded-[1.6rem] border p-6 transition-colors duration-500",
+                    styles.mutedCard,
+                  )}
+                >
+                  <p className="mb-3 font-display text-3xl tracking-[-0.05em] text-[#c99134]">
+                    {step.num}
+                  </p>
+                  <h3 className="text-xl font-semibold uppercase tracking-[0.12em]">
+                    {step.title}
+                  </h3>
+                  <p
+                    className={cn(
+                      "mt-3 font-editorial leading-7 transition-colors duration-500",
+                      styles.articleBody,
+                    )}
+                  >
+                    {step.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -626,18 +743,18 @@ const PortfolioV2Page = () => {
                 styles.workCopy,
               )}
             >
-              Structured as polished case-study previews with clearer pacing, image
-              weight, and room for motion-led transitions into deeper project pages.
+              A selection of projects showcasing my design expertise and
+              problem-solving abilities, now arranged in a four-card showcase.
             </p>
           </div>
 
-          <div className="space-y-8">
+          <div className="grid gap-6 md:grid-cols-2">
             {featuredProjects.map((project) => (
               <article
                 key={project.title}
                 data-reveal
                 className={cn(
-                  "grid gap-6 rounded-[2rem] border p-4 transition-colors duration-500 md:grid-cols-[1.1fr_0.9fr] md:p-6",
+                  "flex h-full flex-col rounded-[2rem] border p-4 transition-colors duration-500 md:p-5",
                   styles.article,
                 )}
               >
@@ -650,10 +767,10 @@ const PortfolioV2Page = () => {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="h-full min-h-[280px] w-full object-cover transition duration-700 hover:scale-105"
+                    className="h-[18rem] w-full object-cover transition duration-700 hover:scale-105"
                   />
                 </div>
-                <div className="flex flex-col justify-between gap-8 p-2 md:p-4">
+                <div className="flex flex-1 flex-col justify-between gap-6 p-2 md:px-1 md:pb-1">
                   <div>
                     <p
                       className={cn(
@@ -668,7 +785,7 @@ const PortfolioV2Page = () => {
                     </h3>
                     <p
                       className={cn(
-                        "mt-5 max-w-lg font-editorial leading-7 transition-colors duration-500",
+                        "mt-4 font-editorial leading-7 transition-colors duration-500",
                         styles.articleBody,
                       )}
                     >
@@ -695,12 +812,18 @@ const PortfolioV2Page = () => {
                       ))}
                     </div>
                     <button
+                      type="button"
+                      onClick={() => {
+                        if (project.href) {
+                          window.open(project.href, "_blank", "noopener,noreferrer");
+                        }
+                      }}
                       className={cn(
                         "inline-flex w-fit items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.22em] transition",
                         styles.actionButton,
                       )}
                     >
-                      View project details
+                      View case study
                       <ArrowUpRight className="h-4 w-4" />
                     </button>
                   </div>
@@ -776,9 +899,9 @@ const PortfolioV2Page = () => {
               Contact
             </p>
             <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-              Let&apos;s build
+              Let&apos;s connect
               <br />
-              the next version.
+              and create.
             </h2>
             <p
               className={cn(
@@ -786,26 +909,63 @@ const PortfolioV2Page = () => {
                 styles.footerText,
               )}
             >
-              The motion foundation is now ready for deeper transitions too, like
-              project page reveals, cursor-follow interactions, or scroll-linked
-              storytelling between sections.
+              I seek to push the limits of creativity to create high-engaging,
+              user-friendly, and memorable interactive experiences.
             </p>
           </div>
 
-          <div
-            data-reveal
-            className={cn(
-              "flex flex-col items-start gap-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500",
-              styles.footerMeta,
-            )}
-          >
-            <a href="mailto:satish@example.com" className={cn("transition", styles.navLink)}>
-              satish@example.com
-            </a>
-            <a href="tel:+910000000000" className={cn("transition", styles.navLink)}>
-              +91 00000 00000
-            </a>
-            <span>Based in India</span>
+          <div className="grid gap-8 lg:min-w-[26rem]">
+            <div
+              data-reveal
+              className={cn(
+                "rounded-[1.8rem] border p-6 transition-colors duration-500",
+                styles.mutedCard,
+              )}
+            >
+              <p className="mb-5 text-sm uppercase tracking-[0.28em]">Contact information</p>
+              <div className="space-y-4">
+                {contactInfo.map((item) => (
+                  <div key={item.label}>
+                    <p className="mb-1 text-xs uppercase tracking-[0.24em] opacity-60">
+                      {item.label}
+                    </p>
+                    {item.href ? (
+                      <a href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer noopener" : undefined} className={cn("transition", styles.navLink)}>
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p>{item.value}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div
+              data-reveal
+              className={cn(
+                "rounded-[1.8rem] border p-6 transition-colors duration-500",
+                styles.mutedCard,
+              )}
+            >
+              <p className="mb-4 text-sm uppercase tracking-[0.28em]">Follow me on</p>
+              <div className="flex flex-wrap gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={cn(
+                      "rounded-full border px-4 py-2 text-xs uppercase tracking-[0.2em] transition",
+                      styles.actionButton,
+                    )}
+                  >
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </footer>
