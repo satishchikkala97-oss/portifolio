@@ -362,7 +362,7 @@ const PortfolioV2Page = () => {
             </div>
           </header>
 
-          <div className="grid flex-1 items-center gap-16 pb-14 lg:grid-cols-[1fr_0.95fr]">
+          <div className="grid flex-1 items-center gap-16 pb-14 lg:grid-cols-[0.9fr_1.1fr]">
             <div ref={introRef} className="max-w-4xl">
               <div
                 data-gsap="eyebrow"
@@ -438,24 +438,24 @@ const PortfolioV2Page = () => {
 
             <div
               ref={profileSceneRef}
-              className="relative mx-auto flex w-full max-w-[34rem] items-center justify-center [perspective:1600px]"
+              className="relative mx-auto flex w-full max-w-[44rem] items-center justify-center [perspective:1800px] lg:-mr-10"
             >
               <div
                 className={cn(
-                  "absolute inset-[10%] rounded-full bg-gradient-to-br blur-3xl transition-colors duration-500",
+                  "absolute inset-[6%] rounded-full bg-gradient-to-br blur-3xl transition-colors duration-500",
                   styles.heroBackdrop,
                 )}
               />
               <div
                 className={cn(
-                  "absolute inset-[8%] rounded-[2.8rem] border backdrop-blur-sm transition-colors duration-500",
+                  "absolute inset-[4%] rounded-[3.2rem] border backdrop-blur-sm transition-colors duration-500",
                   styles.heroPanel,
                 )}
               />
               <div
                 ref={profileCardRef}
                 className={cn(
-                  "relative z-10 w-[72%] rounded-[2rem] border p-4 [transform-style:preserve-3d] transition-colors duration-500",
+                  "relative z-10 w-[82%] rounded-[2.3rem] border p-5 [transform-style:preserve-3d] transition-colors duration-500 sm:w-[80%] lg:w-[84%]",
                   styles.profileFrame,
                 )}
               >
@@ -468,7 +468,7 @@ const PortfolioV2Page = () => {
                   <img
                     src="/profile.jpg"
                     alt="Satish portrait"
-                    className="h-full w-full object-cover"
+                    className="h-full min-h-[28rem] w-full object-cover sm:min-h-[34rem] lg:min-h-[40rem]"
                   />
                 </div>
                 <div
@@ -495,20 +495,20 @@ const PortfolioV2Page = () => {
                 >
                   <div
                     className={cn(
-                      "flex items-center gap-3 rounded-2xl border px-4 py-3 backdrop-blur-md transition-colors duration-500",
+                      "flex items-center gap-3 rounded-2xl border px-3 py-2.5 backdrop-blur-md transition-colors duration-500 sm:px-4 sm:py-3",
                       styles.floatingCard,
                     )}
                   >
                     <img
                       src={tool.src}
                       alt={tool.label}
-                      className="h-10 w-10 rounded-xl object-contain"
+                      className="h-8 w-8 rounded-xl object-contain sm:h-10 sm:w-10"
                     />
                     <div className="min-w-[6rem]">
-                      <p className="text-sm font-semibold uppercase tracking-[0.16em]">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] sm:text-sm">
                         {tool.label}
                       </p>
-                      <p className="mt-0.5 text-[10px] uppercase tracking-[0.2em] opacity-70">
+                      <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] opacity-70 sm:text-[10px]">
                         {tool.caption}
                       </p>
                     </div>
