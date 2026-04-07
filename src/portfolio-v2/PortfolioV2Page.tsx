@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Moon, Sparkles, Sun } from "lucide-react";
+import { Moon, Sparkles, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import {
   aboutCopy,
   contactInfo,
-  featuredProjects,
   heroTape,
   processSteps,
   services,
@@ -16,6 +15,8 @@ import {
   stats,
   toolStack,
 } from "./data";
+import type { ThemePalette } from "./types";
+import HeroSection from "./components/HeroSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -125,7 +126,7 @@ const themeStyles = {
       "border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.7))] text-black/75 shadow-[0_18px_40px_rgba(93,72,37,0.14)]",
     visualLabel: "border-black/10 bg-white/65 text-black/50",
   },
-} as const;
+} as const satisfies Record<"dark" | "light", ThemePalette>;
 
 const PortfolioV2Page = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -713,126 +714,7 @@ const PortfolioV2Page = () => {
         </div>
       </section>
 
-      <section
-        id="work"
-        className={cn("transition-colors duration-500", styles.workSection)}
-      >
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
-          <div
-            data-reveal
-            className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
-          >
-            <div>
-              <p
-                className={cn(
-                  "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
-                  styles.accent,
-                )}
-              >
-                Selected work
-              </p>
-              <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-                Featured
-                <br />
-                projects
-              </h2>
-            </div>
-            <p
-              className={cn(
-                "max-w-md font-editorial leading-7 transition-colors duration-500",
-                styles.workCopy,
-              )}
-            >
-              A selection of projects showcasing my design expertise and
-              problem-solving abilities, now arranged in a four-card showcase.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {featuredProjects.map((project) => (
-              <article
-                key={project.title}
-                data-reveal
-                className={cn(
-                  "flex h-full flex-col rounded-[2rem] border p-4 transition-colors duration-500 md:p-5",
-                  styles.article,
-                )}
-              >
-                <div
-                  className={cn(
-                    "overflow-hidden rounded-[1.5rem] border transition-colors duration-500",
-                    styles.articleImage,
-                  )}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-[18rem] w-full object-cover transition duration-700 hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col justify-between gap-6 p-2 md:px-1 md:pb-1">
-                  <div>
-                    <p
-                      className={cn(
-                        "mb-3 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
-                        styles.articleMeta,
-                      )}
-                    >
-                      {project.year} / {project.category}
-                    </p>
-                    <h3 className="font-display text-3xl uppercase leading-none tracking-[-0.04em] md:text-5xl">
-                      {project.title}
-                    </h3>
-                    <p
-                      className={cn(
-                        "mt-4 font-editorial leading-7 transition-colors duration-500",
-                        styles.articleBody,
-                      )}
-                    >
-                      {project.summary}
-                    </p>
-                  </div>
-                  <div
-                    className={cn(
-                      "flex flex-col gap-5 border-t pt-5 transition-colors duration-500",
-                      styles.divider,
-                    )}
-                  >
-                    <div className="flex flex-wrap gap-2">
-                      {project.deliverables.map((item) => (
-                        <span
-                          key={item}
-                          className={cn(
-                            "rounded-full border px-3 py-1.5 text-xs uppercase tracking-[0.2em] transition-colors duration-500",
-                            styles.tag,
-                          )}
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (project.href) {
-                          window.open(project.href, "_blank", "noopener,noreferrer");
-                        }
-                      }}
-                      className={cn(
-                        "inline-flex w-fit items-center gap-3 rounded-full border px-5 py-3 text-sm uppercase tracking-[0.22em] transition",
-                        styles.actionButton,
-                      )}
-                    >
-                      View case study
-                      <ArrowUpRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HeroSection styles={styles} />
 
       <section className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
         <div data-reveal className="mb-12 max-w-3xl">

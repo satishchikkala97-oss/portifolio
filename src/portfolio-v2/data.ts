@@ -1,3 +1,5 @@
+import type { FeaturedProject, ToolName } from "./types";
+
 export const heroTape = [
   "Product Designer",
   "UI Systems",
@@ -8,7 +10,7 @@ export const heroTape = [
   "3D Scroll Depth",
 ];
 
-export const featuredProjects = [
+export const featuredProjects: FeaturedProject[] = [
   {
     year: "2025",
     title: "Aayu Mobile App",
@@ -18,6 +20,8 @@ export const featuredProjects = [
     summary:
       "A comprehensive healthcare mobile application designed to connect patients with doctors, manage appointments, and track health records seamlessly.",
     deliverables: ["Mobile App", "Healthcare", "UI/UX"],
+    tools: ["Figma", "Adobe XD", "Lottie"],
+    orbitIcon: "smartphone",
   },
   {
     year: "2024",
@@ -28,6 +32,8 @@ export const featuredProjects = [
     summary:
       "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
     deliverables: ["Web Design", "Mobile", "Health Tech"],
+    tools: ["Figma", "HTML", "Photoshop"],
+    orbitIcon: "heart",
   },
   {
     year: "2024",
@@ -38,6 +44,8 @@ export const featuredProjects = [
       "Creative logo design and brand identity projects for various startups and businesses, establishing strong visual foundations.",
     deliverables: ["Branding", "Logo", "Identity"],
     href: "https://www.behance.net/gallery/239601115/Logo-Case-Study",
+    tools: ["Photoshop", "Adobe XD", "Figma"],
+    orbitIcon: "pen",
   },
   {
     year: "2024",
@@ -48,6 +56,8 @@ export const featuredProjects = [
     summary:
       "A second concept direction exploring the same wellness space through responsive storytelling, product pacing, and conversion-friendly UX decisions.",
     deliverables: ["Responsive UX", "Visual Design", "Product Thinking"],
+    tools: ["HTML", "Figma", "Lottie"],
+    orbitIcon: "layout",
   },
 ];
 
@@ -133,6 +143,14 @@ export const socialLinks = [
   { label: "Dribbble", href: "https://dribbble.com" },
   { label: "GitHub", href: "https://github.com" },
 ];
+
+export const toolIcons: Record<ToolName, string> = {
+  Figma: "/Figma.svg",
+  "Adobe XD": "/adobe-xd.svg",
+  Photoshop: "/photoshop.svg",
+  Lottie: "/lottiefiles.svg",
+  HTML: "/html.svg",
+};
 
 export const toolStack = [
   {

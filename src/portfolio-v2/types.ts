@@ -1,0 +1,58 @@
+export type ThemePalette = {
+  page: string;
+  heroSection: string;
+  heroGlow: string;
+  meshGlow: string;
+  header: string;
+  navLink: string;
+  subtleButton: string;
+  badge: string;
+  eyebrow: string;
+  body: string;
+  card: string;
+  cardMeta: string;
+  secondaryAction: string;
+  tickerWrap: string;
+  tickerText: string;
+  accent: string;
+  statCard: string;
+  statText: string;
+  workSection: string;
+  workCopy: string;
+  article: string;
+  articleImage: string;
+  articleMeta: string;
+  articleBody: string;
+  divider: string;
+  tag: string;
+  actionButton: string;
+  serviceCard: string;
+  serviceIndex: string;
+  footer: string;
+  footerText: string;
+  footerMeta: string;
+  mutedCard: string;
+  toggleWrap: string;
+  toggleActive: string;
+  toggleIdle: string;
+  heroPanel: string;
+  heroBackdrop: string;
+  profileFrame: string;
+  profileRing: string;
+  floatingCard: string;
+  visualLabel: string;
+};
+
+export type ToolName = "Figma" | "Adobe XD" | "Photoshop" | "Lottie" | "HTML";
+
+export type FeaturedProject = {
+  year: string;
+  title: string;
+  category: string;
+  image: string;
+  summary: string;
+  deliverables: string[];
+  href?: string;
+  tools: ToolName[];
+  orbitIcon: "smartphone" | "heart" | "pen" | "layout";
+};
