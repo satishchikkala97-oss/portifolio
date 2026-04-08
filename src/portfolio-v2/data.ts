@@ -167,7 +167,7 @@ export const toolStack = [
     label: "CSS",
     caption: "Styling",
     src: "/css.svg",
-    position: { left: "60%", top: "42%" },
+    position: { left: "70%", top: "42%" },
   },
   {
     label: "Adobe XD",
