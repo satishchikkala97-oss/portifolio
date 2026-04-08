@@ -1,11 +1,8 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { HeartPulse, LayoutTemplate, PenTool, Smartphone } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import type { FeaturedProject, ThemePalette } from "../types";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const orbitIconMap = {
   smartphone: Smartphone,
@@ -27,6 +24,9 @@ type ProjectOrbitProps = {
   onActiveChange: (index: number) => void;
   styles: ThemePalette;
   mobile?: boolean;
+  embedded?: boolean;
+  className?: string;
+  showProgress?: boolean;
 };
 
 const ProjectOrbit = ({
@@ -35,54 +35,11 @@ const ProjectOrbit = ({
   onActiveChange,
   styles,
   mobile = false,
+  embedded = false,
+  className,
+  showProgress = true,
 }: ProjectOrbitProps) => {
-  const rootRef = useRef<HTMLDivElement | null>(null);
   const iconRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const activeIndexRef = useRef(activeIndex);
-
-  const projectCount = projects.length;
-  const snapPoints = useMemo(
-    () => projects.map((_, index) => (projectCount === 1 ? 0 : index / (projectCount - 1))),
-    [projects, projectCount],
-  );
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  useLayoutEffect(() => {
-    if (mobile) {
-      return;
-    }
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: rootRef.current,
-        start: "top top",
-        end: `+=${window.innerHeight * (projectCount - 1)}`,
-        pin: true,
-        scrub: 0.8,
-        snap: snapPoints,
-        onUpdate: (self) => {
-          const nextIndex = Math.min(
-            projectCount - 1,
-            Math.round(self.progress * (projectCount - 1)),
-          );
-
-          if (nextIndex !== activeIndexRef.current) {
-            onActiveChange(nextIndex);
-          }
-        },
-      });
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [mobile, onActiveChange, projectCount, snapPoints]);
 
   useEffect(() => {
     iconRefs.current.forEach((icon, index) => {
@@ -105,10 +62,12 @@ const ProjectOrbit = ({
 
   return (
     <div
-      ref={rootRef}
       className={cn(
-        "relative flex h-[34rem] items-center justify-center rounded-[2.2rem] border transition-colors duration-500 md:h-[42rem]",
-        styles.mutedCard,
+        "relative flex h-[34rem] items-center justify-center transition-colors duration-500 md:h-[42rem]",
+        embedded
+          ? "rounded-none border-0 bg-transparent"
+          : cn("rounded-[2.2rem] border", styles.mutedCard),
+        className,
       )}
     >
       <div className="pointer-events-none absolute inset-0 rounded-[2.2rem] bg-[radial-gradient(circle_at_center,rgba(201,145,52,0.12),transparent_45%)]" />
@@ -164,20 +123,22 @@ const ProjectOrbit = ({
         })}
       </div>
 
-      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
-        {projects.map((project, index) => (
-          <button
-            key={`${project.title}-${index}`}
-            type="button"
-            onClick={() => onActiveChange(index)}
-            className={cn(
-              "h-2.5 rounded-full transition-all duration-300",
-              index === activeIndex ? "w-8 bg-[#c99134]" : "w-2.5 bg-black/15",
-            )}
-            aria-label={`Go to ${project.title}`}
-          />
-        ))}
-      </div>
+      {showProgress && (
+        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
+          {projects.map((project, index) => (
+            <button
+              key={`${project.title}-${index}`}
+              type="button"
+              onClick={() => onActiveChange(index)}
+              className={cn(
+                "h-2.5 rounded-full transition-all duration-300",
+                index === activeIndex ? "w-8 bg-[#c99134]" : "w-2.5 bg-black/15",
+              )}
+              aria-label={`Go to ${project.title}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

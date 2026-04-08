@@ -7,14 +7,20 @@ import type { FeaturedProject, ThemePalette } from "../types";
 type ProjectDetailsProps = {
   project: FeaturedProject;
   styles: ThemePalette;
+  embedded?: boolean;
 };
 
-const ProjectDetails = ({ project, styles }: ProjectDetailsProps) => {
+const ProjectDetails = ({ project, styles, embedded = false }: ProjectDetailsProps) => {
   return (
     <div
       className={cn(
-        "rounded-[2rem] border p-6 shadow-[0_20px_50px_rgba(0,0,0,0.06)] backdrop-blur-md transition-colors duration-500 md:p-8",
-        styles.article,
+        "p-6 backdrop-blur-md transition-colors duration-500 md:p-8",
+        embedded
+          ? "h-full rounded-none border-0 bg-transparent shadow-none"
+          : cn(
+              "rounded-[2rem] border shadow-[0_20px_50px_rgba(0,0,0,0.06)]",
+              styles.article,
+            ),
       )}
     >
       <p className={cn("mb-3 text-sm uppercase tracking-[0.28em]", styles.articleMeta)}>
