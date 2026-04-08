@@ -65,13 +65,18 @@ const ProjectOrbit = ({
       className={cn(
         "relative flex h-[34rem] items-center justify-center transition-colors duration-500 md:h-[42rem]",
         embedded
-          ? "rounded-none border-0 bg-transparent"
+          ? "justify-center rounded-none border-0 bg-transparent"
           : cn("rounded-[2.2rem] border", styles.mutedCard),
         className,
       )}
     >
       <div className="pointer-events-none absolute inset-0 rounded-[2.2rem] bg-[radial-gradient(circle_at_center,rgba(201,145,52,0.12),transparent_45%)]" />
-      <div className="relative h-[22rem] w-[18rem] md:h-[28rem] md:w-[20rem]">
+      <div
+        className={cn(
+          "relative h-[22rem] w-[18rem] md:h-[28rem] md:w-[20rem]",
+          embedded && "h-[26rem] w-[22rem] md:h-[34rem] md:w-[28rem]",
+        )}
+      >
         <svg
           viewBox="0 0 260 520"
           className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2"

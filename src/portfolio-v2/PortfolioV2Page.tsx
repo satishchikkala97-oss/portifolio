@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Moon, Sparkles, Sun } from "lucide-react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Menu, Moon, Sparkles, Sun, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,6 @@ import {
   aboutCopy,
   contactInfo,
   heroTape,
-  processSteps,
   services,
   skills,
   socialLinks,
@@ -130,6 +129,7 @@ const themeStyles = {
 
 const PortfolioV2Page = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const rootRef = useRef<HTMLElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
@@ -149,9 +149,24 @@ const PortfolioV2Page = () => {
     setTheme("light");
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleThemeChange = (nextTheme: "light" | "dark") => {
     setTheme(nextTheme);
     window.localStorage.setItem(STORAGE_KEY, nextTheme);
+  };
+
+  const handleMobileNavClick = () => {
+    setIsMobileMenuOpen(false);
   };
 
   const styles = themeStyles[theme];
@@ -310,11 +325,11 @@ const PortfolioV2Page = () => {
           <header
             data-gsap="header"
             className={cn(
-              "mb-14 flex items-center justify-between pb-5 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
+              "relative z-50 mb-14 flex items-center justify-between pb-5 text-sm uppercase tracking-[0.28em] transition-colors duration-500",
               styles.header,
             )}
           >
-            <span>Portfolio V2</span>
+            <span className="text-xs md:text-sm">Portfolio V2</span>
             <nav className="hidden gap-8 md:flex">
               <a href="#work" className={cn("transition", styles.navLink)}>
                 Work
@@ -326,7 +341,7 @@ const PortfolioV2Page = () => {
                 Contact
               </a>
             </nav>
-            <div className="flex items-center gap-3">
+            <div className="hidden items-center gap-3 md:flex">
               <div
                 className={cn(
                   "flex items-center gap-1 rounded-full border p-1 transition-colors duration-500",
@@ -358,15 +373,95 @@ const PortfolioV2Page = () => {
                   Dark
                 </button>
               </div>
-              <Link
-                to="/"
-                className={cn(
-                  "hidden rounded-full border px-4 py-2 text-[11px] transition md:inline-flex",
-                  styles.subtleButton,
-                )}
-              >
-                Current Site
-              </Link>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              className={cn(
+                "inline-flex h-11 w-11 items-center justify-center rounded-full border transition md:hidden",
+                styles.toggleWrap,
+              )}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="portfolio-v2-mobile-menu"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+            <div
+              id="portfolio-v2-mobile-menu"
+              className={cn(
+                "absolute left-0 right-0 top-full z-50 overflow-hidden rounded-[1.8rem] border shadow-[0_24px_70px_rgba(0,0,0,0.14)] transition-all duration-300 md:hidden",
+                theme === "dark"
+                  ? "border-white/10 bg-[#141414]/95 text-white backdrop-blur-xl"
+                  : "border-black/10 bg-[#fcfaf4]/96 text-[#151515] backdrop-blur-xl",
+                isMobileMenuOpen
+                  ? "pointer-events-auto mt-4 translate-y-0 opacity-100"
+                  : "pointer-events-none mt-2 -translate-y-2 opacity-0",
+              )}
+            >
+              <div className="flex flex-col gap-2 p-5">
+                <a
+                  href="#work"
+                  onClick={handleMobileNavClick}
+                  className={cn(
+                    "rounded-2xl px-4 py-3 text-sm uppercase tracking-[0.24em] transition",
+                    theme === "dark" ? "hover:bg-white/5" : "hover:bg-black/5",
+                    styles.navLink,
+                  )}
+                >
+                  Work
+                </a>
+                <a
+                  href="#about"
+                  onClick={handleMobileNavClick}
+                  className={cn(
+                    "rounded-2xl px-4 py-3 text-sm uppercase tracking-[0.24em] transition",
+                    theme === "dark" ? "hover:bg-white/5" : "hover:bg-black/5",
+                    styles.navLink,
+                  )}
+                >
+                  About
+                </a>
+                <a
+                  href="#contact"
+                  onClick={handleMobileNavClick}
+                  className={cn(
+                    "rounded-2xl px-4 py-3 text-sm uppercase tracking-[0.24em] transition",
+                    theme === "dark" ? "hover:bg-white/5" : "hover:bg-black/5",
+                    styles.navLink,
+                  )}
+                >
+                  Contact
+                </a>
+                <div className={cn("mt-3 border-t pt-4", styles.divider)}>
+                  <div className={cn("flex items-center gap-1 rounded-full border p-1", styles.toggleWrap)}>
+                    <button
+                      type="button"
+                      onClick={() => handleThemeChange("light")}
+                      className={cn(
+                        "inline-flex flex-1 items-center justify-center gap-2 rounded-full px-3 py-3 text-[11px] transition",
+                        theme === "light" ? styles.toggleActive : styles.toggleIdle,
+                      )}
+                      aria-pressed={theme === "light"}
+                    >
+                      <Sun className="h-3.5 w-3.5" />
+                      Light
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleThemeChange("dark")}
+                      className={cn(
+                        "inline-flex flex-1 items-center justify-center gap-2 rounded-full px-3 py-3 text-[11px] transition",
+                        theme === "dark" ? styles.toggleActive : styles.toggleIdle,
+                      )}
+                      aria-pressed={theme === "dark"}
+                    >
+                      <Moon className="h-3.5 w-3.5" />
+                      Dark
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </header>
 
@@ -382,7 +477,7 @@ const PortfolioV2Page = () => {
                 <span className="h-2 w-2 rounded-full bg-[#f0c674]" />
                 Available for select freelance projects
               </div>
-              <p
+              {/* <p
                 data-gsap="intro-copy"
                 className={cn(
                   "mb-5 font-editorial text-sm uppercase tracking-[0.35em] transition-colors duration-500",
@@ -390,24 +485,24 @@ const PortfolioV2Page = () => {
                 )}
               >
                 Hello I&apos;m / Satish Chikkala / UI UX Designer
-              </p>
+              </p> */}
               <h1
                 ref={headingRef}
                 className="font-display text-[4rem] uppercase leading-[0.88] tracking-[-0.06em] text-balance sm:text-[5.5rem] md:text-[7.1rem] lg:text-[8.8rem]"
               >
                 <span className="block overflow-hidden">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
-                    Designing
+                  Hello I'm 
                   </span>
                 </span>
                 <span className="block overflow-hidden">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
-                    motion-rich
+                  Satish Chikkala
                   </span>
                 </span>
                 <span className="block overflow-hidden">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
-                    digital stories
+                  UI/UX Designer
                   </span>
                 </span>
               </h1>
@@ -430,7 +525,7 @@ const PortfolioV2Page = () => {
                     styles.secondaryAction,
                   )}
                 >
-                  Explore selected work
+                  Explore work
                   <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
                 <a
@@ -472,24 +567,18 @@ const PortfolioV2Page = () => {
               >
                 <div
                   className={cn(
-                    "overflow-hidden rounded-[1.6rem] border transition-colors duration-500",
+                    "relative flex min-h-[20rem] items-end justify-center overflow-hidden rounded-[1.6rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(240,245,252,0.92))] transition-colors duration-500 sm:min-h-[20rem] lg:min-h-[32rem]",
                     styles.profileRing,
                   )}
                 >
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(circle_at_bottom,rgba(155,190,230,0.18),transparent_65%)]" />
                   <img
-                    src="/profile.jpg"
+                    src="/profile-trans.png"
                     alt="Satish portrait"
-                    className="h-full min-h-[28rem] w-full object-cover sm:min-h-[34rem] lg:min-h-[40rem]"
+                    className="relative z-10 w-[112%] max-w-none translate-y-3 object-contain object-bottom sm:w-[114%] sm:translate-y-4 lg:w-[118%] lg:translate-y-5"
                   />
                 </div>
-                <div
-                  className={cn(
-                    "absolute bottom-5 left-5 rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.24em] transition-colors duration-500",
-                    styles.visualLabel,
-                  )}
-                >
-                  Interface craft / motion-first
-                </div>
+                
               </div>
 
               {toolStack.map((tool, index) => (
@@ -553,18 +642,18 @@ const PortfolioV2Page = () => {
         className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-20 md:px-10 lg:grid-cols-[0.95fr_1.05fr] lg:px-16 lg:py-28"
       >
         <div data-reveal>
-          <p
+          {/* <p
             className={cn(
               "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
               styles.accent,
             )}
           >
             About the direction
-          </p>
+          </p> */}
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
             About
             <br />
-            me.
+            me
           </h2>
         </div>
 
@@ -611,14 +700,14 @@ const PortfolioV2Page = () => {
 
       <section className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
         <div data-reveal className="mb-12 max-w-3xl">
-          <p
+          {/* <p
             className={cn(
               "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
               styles.accent,
             )}
           >
             Skills
-          </p>
+          </p> */}
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
             My
             <br />
@@ -644,7 +733,14 @@ const PortfolioV2Page = () => {
                 styles.mutedCard,
               )}
             >
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f0c674]/10">
+              <div
+                className={cn(
+                  "mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl transition-colors duration-500",
+                  theme === "dark"
+                    ? " bg-[#c99134] shadow-[0_10px_28px_rgba(240,198,116,0.12)]"
+                    : "bg-[#f0c674]/10",
+                )}
+              >
                 <img
                   src={skill.icon}
                   alt={skill.label}
@@ -662,73 +758,126 @@ const PortfolioV2Page = () => {
       <section
         className={cn("transition-colors duration-500", styles.workSection)}
       >
-        <div className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-20 md:px-10 lg:grid-cols-[0.92fr_1.08fr] lg:px-16 lg:py-28">
-          <div data-reveal className="relative overflow-hidden rounded-[2rem] border border-current/10">
-            <img
-              src="/work.jpg"
-              alt="Work process"
-              className="h-full min-h-[24rem] w-full object-cover"
-            />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28"
+        >
+          <div className="mb-8 text-center">
+            <h3 className="font-display text-3xl uppercase tracking-[-0.04em] md:text-5xl">
+              Work Process
+            </h3>
+            <p
+              className={cn(
+                "mt-3 font-editorial text-lg transition-colors duration-500",
+                styles.body,
+              )}
+            >
+              " From research to reality — my creative workflow "
+            </p>
           </div>
-          <div>
-            <div data-reveal className="mb-10">
-              <p
-                className={cn(
-                  "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
-                  styles.accent,
-                )}
-              >
-                Work process
-              </p>
-              <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-                From research
-                <br />
-                to reality
-              </h2>
-            </div>
-            <div className="space-y-6">
-              {processSteps.map((step) => (
-                <div
+
+          <div className="grid items-start gap-12 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className={cn(
+                "relative flex items-center justify-center rounded-[2rem] border p-3 md:sticky md:top-24",
+                styles.mutedCard,
+              )}
+            >
+              <div className="grid w-full grid-cols-2 gap-3">
+                <img
+                  src="/work.jpg"
+                  alt="Work Process"
+                  className="col-span-2 h-auto w-full rounded-[1.4rem]"
+                />
+              </div>
+            </motion.div>
+
+            <div className="space-y-8">
+            {[
+  {
+    num: 1,
+    title: "Research",
+    desc: "The process begins with understanding user needs, business goals, and the target audience through research and competitor analysis.",
+  },
+  {
+    num: 2,
+    title: "Define",
+    desc: "Research insights are organized into clear problem statements, user personas, and user journeys to guide the design direction.",
+  },
+  {
+    num: 3,
+    title: "Wireframe",
+    desc: "Low-fidelity wireframes are created to map user flows and validate structure and usability early.",
+  },
+  {
+    num: 4,
+    title: "Design",
+    desc: "High-fidelity interfaces are designed in Figma, focusing on clarity, consistency, and modern UI.",
+  },
+  {
+    num: 5,
+    title: "Prototype",
+    desc: "Interactive prototypes are developed to simulate real user interactions and validate flows.",
+  },
+  {
+    num: 6,
+    title: "Test & Iterate",
+    desc: "Feedback is gathered through usability testing, and designs are continuously refined to improve the overall user experience.",
+  },
+].map((step, index) => (
+                <motion.div
                   key={step.num}
-                  data-reveal
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                   className={cn(
-                    "rounded-[1.6rem] border p-6 transition-colors duration-500",
+                    "rounded-[1.6rem] border p-6 transition-colors duration-300",
                     styles.mutedCard,
                   )}
                 >
-                  <p className="mb-3 font-display text-3xl tracking-[-0.05em] text-[#c99134]">
-                    {step.num}
-                  </p>
-                  <h3 className="text-xl font-semibold uppercase tracking-[0.12em]">
-                    {step.title}
-                  </h3>
-                  <p
-                    className={cn(
-                      "mt-3 font-editorial leading-7 transition-colors duration-500",
-                      styles.articleBody,
-                    )}
-                  >
-                    {step.desc}
-                  </p>
-                </div>
+                  <div className="flex flex-col items-start gap-3">
+                    <span className="font-display text-3xl tracking-[-0.05em] text-[#c99134]">
+                      {step.num}
+                    </span>
+                    <h4 className="text-xl font-semibold uppercase tracking-[0.12em]">
+                      {step.title}
+                    </h4>
+                    <p
+                      className={cn(
+                        "text-left font-editorial text-sm leading-7 transition-colors duration-500 md:text-base",
+                        styles.articleBody,
+                      )}
+                    >
+                      {step.desc}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <HeroSection styles={styles} />
 
       <section className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
         <div data-reveal className="mb-12 max-w-3xl">
-          <p
+          {/* <p
             className={cn(
               "mb-4 text-sm uppercase tracking-[0.32em] transition-colors duration-500",
               styles.accent,
             )}
           >
             What this version highlights
-          </p>
+          </p> */}
           <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
             A more
             <br />

@@ -85,13 +85,11 @@ const HeroSection = ({ styles }: HeroSectionProps) => {
       <div className="mx-auto w-full max-w-7xl px-6 py-20 md:px-10 lg:px-16 lg:py-28">
         <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className={cn("mb-4 text-sm uppercase tracking-[0.32em]", styles.accent)}>
-              Featured projects
-            </p>
+            {/* <p className={cn("mb-4 text-sm uppercase tracking-[0.32em]", styles.accent)}>
+              
+            </p> */}
             <h2 className="font-display text-4xl uppercase leading-none tracking-[-0.05em] md:text-6xl">
-              Scroll-led
-              <br />
-              case studies
+            Featured projects
             </h2>
           </div>
           <p className={cn("max-w-md font-editorial leading-7", styles.workCopy)}>
@@ -116,16 +114,16 @@ const HeroSection = ({ styles }: HeroSectionProps) => {
                   hideOrbitPath
                   className="min-h-[calc(100vh-10rem)] justify-start"
                 >
-                  <ProjectOrbit
-                    projects={featuredProjects}
-                    activeIndex={activeIndex}
-                    onActiveChange={setActiveIndex}
-                    styles={styles}
-                    embedded
-                    showProgress={false}
-                    className="pointer-events-auto absolute inset-y-0 right-0 w-[56%]"
-                  />
-                </ProfileBlock>
+                <ProjectOrbit
+                  projects={featuredProjects}
+                  activeIndex={activeIndex}
+                  onActiveChange={setActiveIndex}
+                  styles={styles}
+                  embedded
+                  showProgress={false}
+                  className="pointer-events-auto absolute inset-y-0 left-1/2 w-[72%] max-w-[30rem] -translate-x-1/2"
+                />
+              </ProfileBlock>
                 <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2">
                   {featuredProjects.map((project, index) => (
                     <span
@@ -145,7 +143,7 @@ const HeroSection = ({ styles }: HeroSectionProps) => {
           </div>
         ) : (
           <div className="space-y-6">
-            <ProfileBlock styles={styles} />
+           
             <div className="overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <div className="flex snap-x snap-mandatory gap-4">
                 {featuredProjects.map((project, index) => (

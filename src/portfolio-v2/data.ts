@@ -1,62 +1,59 @@
 import type { FeaturedProject, ToolName } from "./types";
 
 export const heroTape = [
-  "Product Designer",
-  "UI Systems",
-  "Motion Direction",
+  "UI Design",
+  "Wireframes",
+  "Prototyping",
+  "User Research",
+  "Micro Interactions",
+  "User Flow Design",
   "Web Experiences",
-  "Brand Storytelling",
-  "GSAP Transitions",
-  "3D Scroll Depth",
 ];
 
 export const featuredProjects: FeaturedProject[] = [
   {
-    year: "2025",
+    year: "",
     title: "Aayu Mobile App",
-    category: "Mobile App / Healthcare / UI UX",
+    category: "",
     image: "/projects/Aayu (3).jpg.jpeg",
     summary:
-      "A comprehensive healthcare mobile application designed to connect patients with doctors, manage appointments, and track health records seamlessly.",
+      "Helps users express emotions through voice and chat.Designed for a calm and supportive experience.",
     deliverables: ["Mobile App", "Healthcare", "UI/UX"],
     href: "https://www.behance.net/gallery/247057879/Aayu-Mobile-App",
     tools: ["Figma", "Adobe XD", "Lottie"],
     orbitIcon: "smartphone",
   },
   {
-    year: "2024",
+    year: "",
     title: "Health Hub Web Mobile",
-    category: "Web Design / Mobile / Health Tech",
+    category: "",
     image: "/projects/HSLS (2).jpg.jpeg",
-    summary:
-      "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
+    summary:"Organizes health content based on age and needs.Makes information easy to find and understand.",
     deliverables: ["Web Design", "Mobile", "Health Tech"],
     href: "https://www.behance.net/gallery/247120695/Health-Hub-Web-Mobile",
-    tools: ["Figma", "HTML", "Photoshop"],
+    tools: ["Figma", "Photoshop"],
     orbitIcon: "heart",
   },
   {
-    year: "2024",
+    year: "",
     title: "Branding Logo Design",
-    category: "Branding / Logo / Identity",
+    category: "",
     image: "/projects/Brand Identity (1).jpg.jpeg",
-    summary:
-      "Creative logo design and brand identity projects for various startups and businesses, establishing strong visual foundations.",
+    summary:"A modern brand identity focused on growth and direction.From concept to final logo design.",
     deliverables: ["Branding", "Logo", "Identity"],
     href: "https://www.behance.net/gallery/239601115/Logo-Case-Study",
     tools: ["Photoshop", "Adobe XD", "Figma"],
     orbitIcon: "pen",
   },
   {
-    year: "2024",
+    year: "",
     title: "Glowly Landing Page UI Design",
-    category: "Landing Page / Visual Design / UI",
+    category: "",
     image: "/projects/Glowly (4).jpg.jpeg",
-    summary:
-      "A polished landing page concept focused on visual hierarchy, clean brand presentation, and conversion-friendly storytelling.",
+    summary:"A beauty salon landing page to explore and book services.Clean, simple, and easy to use.",
     deliverables: ["Landing Page", "UI Design", "Visual Design"],
     href: "https://www.behance.net/gallery/246910359/Glowly-Landing-Page-UI-Design",
-    tools: ["HTML", "Figma", "Lottie"],
+    tools: [ "Figma"],
     orbitIcon: "layout",
   },
 ];
@@ -66,32 +63,29 @@ export const services = [
     index: "01",
     title: "Interface Design",
     description:
-      "Clear, intentional product screens built around hierarchy, usability, and a strong visual rhythm.",
+      "Crafting intuitive and visually engaging user interfaces with a focus on clarity and usability.",
   },
   {
     index: "02",
     title: "Mobile & Web Design",
     description:
-      "Responsive experiences for mobile apps, websites, and platforms designed to feel intuitive across every touchpoint.",
-  },
+"Designing responsive, user-centered experiences across mobile and web platforms.",  },
   {
     index: "03",
-    title: "Prototyping & Systems",
+    title: "Prototyping & Micro-interactions",
     description:
-      "Interactive flows, scalable components, and thoughtful handoff that help ideas move smoothly into development.",
-  },
+"Creating interactive prototypes and meaningful micro-interactions to improve usability and engagement."  },
 ];
 
 export const stats = [
   { value: "1+", label: "Year in UI/UX design" },
-  { value: "B.Tech", label: "Computer Science background" },
+  { value: "MCA", label: "Computer Science background" },
   { value: "End-to-End", label: "Mobile and web design focus" },
 ];
 
 export const aboutCopy = [
-  "I’m a UI/UX Designer focused on building scalable, user-centered digital experiences that align user needs with business goals. I specialize in turning complex, ambiguous problems into clear, intuitive design solutions using strong design fundamentals and strategic thinking.",
-  "I work across mobile apps, responsive websites, and web platforms, collaborating closely with product, engineering, and stakeholders to deliver end-to-end, accessible, and future-ready experiences that create meaningful user impact and long-term product value.",
-];
+"I’m a UI/UX Designer with 1+ year of experience creating user-centered digital experiences that solve real-world problems. I turn complex ideas into clear, intuitive, and effective design solutions.",
+"I work across mobile apps and websites, collaborating with cross-functional teams to deliver user-friendly, accessible, and impactful digital products."];
 
 export const skills = [
   { icon: "/Figma.svg", label: "Figma" },
@@ -106,42 +100,46 @@ export const processSteps = [
   {
     num: "01",
     title: "Research",
-    desc: "I begin by understanding the user's needs, project goals, and target audience. This stage involves collecting insights, studying competitors, and defining key problems to solve.",
+    desc: "The process begins with understanding user needs, business goals, and the target audience through research and competitor analysis.",
   },
   {
     num: "02",
-    title: "Wireframe",
-    desc: "Next, I create low-fidelity sketches and layouts to map out user flows. This helps visualize the structure and ensure every element supports usability and function.",
+    title: "Define",
+    desc: "Research insights are organized into clear problem statements, user personas, and user journeys to guide the design direction.",
   },
   {
     num: "03",
-    title: "Design",
-    desc: "Using Figma and design systems, I bring ideas to life with clean visuals, color palettes, and typography, focusing on clarity, consistency, and modern aesthetics.",
+    title: "Wireframe",
+    desc: "Low-fidelity wireframes are created to map user flows and validate structure and usability early.",
   },
   {
     num: "04",
-    title: "Feedback",
-    desc: "I collaborate with teammates and mentors to review designs, refine user journeys, and improve visual hierarchy based on feedback and usability insights.",
+    title: "Design",
+    desc: "High-fidelity interfaces are designed in Figma, focusing on clarity, consistency, and modern UI.",
   },
   {
     num: "05",
     title: "Prototype",
-    desc: "Finally, I create interactive prototypes to simulate real user experiences. These help test interactions, improve engagement, and prepare the design for development handoff.",
+    desc: "Interactive prototypes are developed to simulate real user interactions and validate flows.",
+  },
+  {
+    num: "06",
+    title: "Test & Iterate",
+    desc: "Feedback is gathered through usability testing, and designs are continuously refined to improve the overall user experience.",
   },
 ];
-
 export const contactInfo = [
   { label: "Email", value: "satishchikkala97@gmail.com", href: "mailto:satishchikkala97@gmail.com" },
   { label: "Phone", value: "+91 8096949567", href: "tel:+918096949567" },
   { label: "Location", value: "Amalapuram, India" },
-  { label: "LinkedIn", value: "linkedin.com/in/satish-chikkala", href: "https://linkedin.com/in/satish-chikkala" },
+  { label: "LinkedIn", value: "linkedin.com/in/murthy-chikkala", href: "https://www.linkedin.com/in/murthy-chikkala/" },
 ];
 
 export const socialLinks = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/satish-chikkala" },
-  { label: "Behance", href: "https://behance.net" },
-  { label: "Dribbble", href: "https://dribbble.com" },
-  { label: "GitHub", href: "https://github.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/murthy-chikkala/" },
+  { label: "Behance", href: "https://www.behance.net/satyanachikkala" },
+  { label: "Dribbble", href: "https://dribbble.com/satish-chikkala" },
+  { label: "GitHub", href: "https://github.com/satishchikkala97-oss" },
 ];
 
 export const toolIcons: Record<ToolName, string> = {
@@ -155,7 +153,7 @@ export const toolIcons: Record<ToolName, string> = {
 export const toolStack = [
   {
     label: "Figma",
-    caption: "Systems",
+    caption: "Design Systems",
     src: "/Figma.svg",
     position: { left: "2%", top: "12%" },
   },
@@ -163,17 +161,17 @@ export const toolStack = [
     label: "HTML",
     caption: "Structure",
     src: "/html.svg",
-    position: { left: "72%", top: "8%" },
+    position: { left: "60%", top: "8%" },
   },
   {
     label: "CSS",
     caption: "Styling",
     src: "/css.svg",
-    position: { left: "78%", top: "42%" },
+    position: { left: "60%", top: "42%" },
   },
   {
-    label: "XD",
-    caption: "Concepts",
+    label: "Adobe XD",
+    caption: "Design Tool",
     src: "/adobe-xd.svg",
     position: { left: "6%", top: "58%" },
   },
@@ -181,7 +179,7 @@ export const toolStack = [
     label: "Photoshop",
     caption: "Visuals",
     src: "/photoshop.svg",
-    position: { left: "66%", top: "78%" },
+    position: { left: "50%", top: "78%" },
   },
   {
     label: "Lottie",

@@ -38,13 +38,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold ">
-              <span className="text-white">Hello I'm</span>
-              <br />
-              <span className="text-[#FFF98A] text-3xl md:text-5xl lg:text-6xl ">Satish Chikkala</span>
-              <br />
-              <span className="text-white/90 font-normal  text-3xl md:text-4xl lg:text-5xl">UI UX Designer</span>
-            </h1>
+            
           </motion.div>
 
           {/* Subheading */}

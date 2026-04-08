@@ -16,7 +16,7 @@ const ProjectDetails = ({ project, styles, embedded = false }: ProjectDetailsPro
       className={cn(
         "p-6 backdrop-blur-md transition-colors duration-500 md:p-8",
         embedded
-          ? "h-full rounded-none border-0 bg-transparent shadow-none"
+          ? "flex h-full flex-col justify-center rounded-none border-0 bg-transparent shadow-none"
           : cn(
               "rounded-[2rem] border shadow-[0_20px_50px_rgba(0,0,0,0.06)]",
               styles.article,
@@ -24,7 +24,7 @@ const ProjectDetails = ({ project, styles, embedded = false }: ProjectDetailsPro
       )}
     >
       <p className={cn("mb-3 text-sm uppercase tracking-[0.28em]", styles.articleMeta)}>
-        {project.year} / {project.category}
+        {project.year} {project.category}
       </p>
       <h3 className="font-display text-3xl uppercase leading-none tracking-[-0.04em] md:text-5xl">
         {project.title}
