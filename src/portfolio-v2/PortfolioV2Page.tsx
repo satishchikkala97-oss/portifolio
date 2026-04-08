@@ -329,7 +329,7 @@ const PortfolioV2Page = () => {
               styles.header,
             )}
           >
-            <span className="text-xs md:text-sm">Portfolio V2</span>
+            <span className="text-xs md:text-sm">Portfolio</span>
             <nav className="hidden gap-8 md:flex">
               <a href="#work" className={cn("transition", styles.navLink)}>
                 Work
