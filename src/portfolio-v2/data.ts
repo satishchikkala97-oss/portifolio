@@ -15,23 +15,23 @@ export const featuredProjects: FeaturedProject[] = [
     year: "2025",
     title: "Aayu Mobile App",
     category: "Mobile App / Healthcare / UI UX",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&h=1200&fit=crop",
+    image: "/projects/Aayu (3).jpg.jpeg",
     summary:
       "A comprehensive healthcare mobile application designed to connect patients with doctors, manage appointments, and track health records seamlessly.",
     deliverables: ["Mobile App", "Healthcare", "UI/UX"],
+    href: "https://www.behance.net/gallery/247057879/Aayu-Mobile-App",
     tools: ["Figma", "Adobe XD", "Lottie"],
     orbitIcon: "smartphone",
   },
   {
     year: "2024",
-    title: "Health Span Life Span",
+    title: "Health Hub Web Mobile",
     category: "Web Design / Mobile / Health Tech",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&h=1200&fit=crop",
+    image: "/projects/HSLS (2).jpg.jpeg",
     summary:
       "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
     deliverables: ["Web Design", "Mobile", "Health Tech"],
+    href: "https://www.behance.net/gallery/247120695/Health-Hub-Web-Mobile",
     tools: ["Figma", "HTML", "Photoshop"],
     orbitIcon: "heart",
   },
@@ -39,7 +39,7 @@ export const featuredProjects: FeaturedProject[] = [
     year: "2024",
     title: "Branding Logo Design",
     category: "Branding / Logo / Identity",
-    image: "/Brand.jpg",
+    image: "/projects/Brand Identity (1).jpg.jpeg",
     summary:
       "Creative logo design and brand identity projects for various startups and businesses, establishing strong visual foundations.",
     deliverables: ["Branding", "Logo", "Identity"],
@@ -49,13 +49,13 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     year: "2024",
-    title: "Health Span Life Span",
-    category: "Web Design / Mobile / Health Tech",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&h=1200&fit=crop",
+    title: "Glowly Landing Page UI Design",
+    category: "Landing Page / Visual Design / UI",
+    image: "/projects/Glowly (4).jpg.jpeg",
     summary:
-      "A second concept direction exploring the same wellness space through responsive storytelling, product pacing, and conversion-friendly UX decisions.",
-    deliverables: ["Responsive UX", "Visual Design", "Product Thinking"],
+      "A polished landing page concept focused on visual hierarchy, clean brand presentation, and conversion-friendly storytelling.",
+    deliverables: ["Landing Page", "UI Design", "Visual Design"],
+    href: "https://www.behance.net/gallery/246910359/Glowly-Landing-Page-UI-Design",
     tools: ["HTML", "Figma", "Lottie"],
     orbitIcon: "layout",
   },

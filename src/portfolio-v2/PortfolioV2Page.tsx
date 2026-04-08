@@ -433,14 +433,17 @@ const PortfolioV2Page = () => {
                   Explore selected work
                   <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
-                <div
+                <a
+                  href="https://drive.google.com/file/d/1p8WbERvgXQO9fbgfzfCGfMY0Xmp4uhGC/view?usp=drivesdk"
+                  target="_blank"
+                  rel="noreferrer noopener"
                   className={cn(
-                    "rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500",
+                    "rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500 hover:border-black/20 hover:text-black",
                     styles.visualLabel,
                   )}
                 >
-                  GSAP-powered motion system
-                </div>
+                  View Resume
+                </a>
               </div>
             </div>
 

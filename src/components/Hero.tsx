@@ -73,13 +73,19 @@ const Hero = () => {
               <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="max-w-[220px] border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-8 py-6 text-base font-semibold rounded-xl bg-transparent group"
             >
-              
-              View Resume
-              <Download className="mr-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <a
+                href="https://drive.google.com/file/d/1p8WbERvgXQO9fbgfzfCGfMY0Xmp4uhGC/view?usp=drivesdk"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                View Resume
+                <Download className="mr-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </a>
             </Button>
           </motion.div>
 

@@ -1,41 +1,48 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Brand from "/Brand.jpg?url";
+import AayuProject from "/projects/Aayu (3).jpg.jpeg?url";
+import BrandProject from "/projects/Brand Identity (1).jpg.jpeg?url";
+import GlowlyProject from "/projects/Glowly (4).jpg.jpeg?url";
+import HealthHubProject from "/projects/HSLS (2).jpg.jpeg?url";
 
 const Portfolio = () => {
   const projects = [
     {
       title: "Aayu Mobile App",
-      category: "",
+      category: "Mobile App / Healthcare / UI UX",
       description: "A comprehensive healthcare mobile application designed to connect patients with doctors, manage appointments, and track health records seamlessly.",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
+      image: AayuProject,
       tags: ["Mobile App", "Healthcare", "UI/UX"],
       color: "from-emerald-500/20 to-teal-600/20",
+      href: "https://www.behance.net/gallery/247057879/Aayu-Mobile-App",
     },
     {
-      title: "Health Span Life Span",
-      category: "",
+      title: "Health Hub Web Mobile",
+      category: "Web Design / Mobile / Health Tech",
       description: "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+      image: HealthHubProject,
       tags: ["Web Design", "Mobile", "Health Tech"],
       color: "from-blue-500/20 to-cyan-600/20",
+      href: "https://www.behance.net/gallery/247120695/Health-Hub-Web-Mobile",
     },
     {
       title: "Branding Logo Design",
-      category: "",
+      category: "Branding / Logo / Identity",
       description: "Creative logo design and brand identity projects for various startups and businesses, establishing strong visual foundations.",
-      image: Brand,
+      image: BrandProject,
       tags: ["Branding", "Logo", "Identity"],
       color: "from-purple-500/20 to-pink-600/20",
+      href: "https://www.behance.net/gallery/239601115/Logo-Case-Study",
     },
      {
-      title: "Health Span Life Span",
-      category: "",
-      description: "A wellness platform focusing on longevity and healthy living, featuring personalized health insights and lifestyle recommendations.",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-      tags: ["Web Design", "Mobile", "Health Tech"],
-      color: "from-blue-500/20 to-cyan-600/20",
+      title: "Glowly Landing Page UI Design",
+      category: "Landing Page / Visual Design / UI",
+      description: "A polished landing page concept focused on visual hierarchy, clean brand presentation, and conversion-friendly storytelling.",
+      image: GlowlyProject,
+      tags: ["Landing Page", "UI Design", "Visual Design"],
+      color: "from-amber-500/20 to-orange-600/20",
+      href: "https://www.behance.net/gallery/246910359/Glowly-Landing-Page-UI-Design",
     },
   ];
 
@@ -98,20 +105,18 @@ const Portfolio = () => {
                 </div>
 
                <Button
-  variant="outline"
-  className="mt-8 group/btn border-primary/20 hover:bg-primary hover:text-primary-foreground"
-  onClick={() => {
-    if (project.title === "Branding Logo Design") {
-      window.open("https://www.behance.net/gallery/239601115/Logo-Case-Study", "_blank");
-    }
-  }}
->
-  View Case Study
-  <ArrowUpRight
-    className="ml-2 w-4 h-4 transition-transform duration-500
-               group-hover/btn:rotate-45"
-  />
-</Button>
+                 asChild
+                 variant="outline"
+                 className="mt-8 group/btn border-primary/20 hover:bg-primary hover:text-primary-foreground"
+               >
+                 <a href={project.href} target="_blank" rel="noreferrer noopener">
+                   View Case Study
+                   <ArrowUpRight
+                     className="ml-2 w-4 h-4 transition-transform duration-500
+                                group-hover/btn:rotate-45"
+                   />
+                 </a>
+               </Button>
 
               </div>
             </motion.div>
