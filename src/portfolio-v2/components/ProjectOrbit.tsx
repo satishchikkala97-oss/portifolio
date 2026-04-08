@@ -146,7 +146,7 @@ const ProjectOrbit = ({
 
           return (
             <button
-              key={project.title}
+              key={`${project.title}-${index}`}
               ref={(node) => {
                 iconRefs.current[index] = node;
               }}
@@ -167,7 +167,7 @@ const ProjectOrbit = ({
       <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
         {projects.map((project, index) => (
           <button
-            key={project.title}
+            key={`${project.title}-${index}`}
             type="button"
             onClick={() => onActiveChange(index)}
             className={cn(

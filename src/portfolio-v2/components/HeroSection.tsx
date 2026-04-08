@@ -67,7 +67,7 @@ const HeroSection = ({ styles }: HeroSectionProps) => {
               <div className="flex snap-x snap-mandatory gap-4">
                 {featuredProjects.map((project, index) => (
                   <button
-                    key={project.title}
+                    key={`${project.title}-${index}`}
                     type="button"
                     onClick={() => setActiveIndex(index)}
                     className={cn(
