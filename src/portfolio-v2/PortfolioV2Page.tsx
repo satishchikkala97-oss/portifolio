@@ -529,7 +529,7 @@ const PortfolioV2Page = () => {
                   <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
                 <a
-                  href="https://drive.google.com/file/d/1p8WbERvgXQO9fbgfzfCGfMY0Xmp4uhGC/view?usp=drivesdk"
+                  href="https://drive.google.com/file/d/1nvNMgFQhscTZJTKHT84qpx4jFyG04MtD/view?usp=drivesdk"
                   target="_blank"
                   rel="noreferrer noopener"
                   className={cn(

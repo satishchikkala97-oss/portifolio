@@ -73,7 +73,7 @@ const Hero = () => {
               className="max-w-[220px] border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-8 py-6 text-base font-semibold rounded-xl bg-transparent group"
             >
               <a
-                href="https://drive.google.com/file/d/1p8WbERvgXQO9fbgfzfCGfMY0Xmp4uhGC/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/1nvNMgFQhscTZJTKHT84qpx4jFyG04MtD/view?usp=drivesdk"
                 target="_blank"
                 rel="noreferrer noopener"
               >

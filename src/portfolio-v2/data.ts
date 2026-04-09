@@ -8,6 +8,7 @@ export const heroTape = [
   "Micro Interactions",
   "User Flow Design",
   "Web Experiences",
+  "Figma make",  "Goggle Stitch",  "Motiff",  "UX pilot" 
 ];
 
 export const featuredProjects: FeaturedProject[] = [
@@ -167,7 +168,7 @@ export const toolStack = [
     label: "CSS",
     caption: "Styling",
     src: "/css.svg",
-    position: { left: "70%", top: "42%" },
+    position: { left: "7w0%", top: "42%" },
   },
   {
     label: "Adobe XD",
