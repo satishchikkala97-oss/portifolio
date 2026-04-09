@@ -121,7 +121,7 @@ const HeroSection = ({ styles }: HeroSectionProps) => {
                   styles={styles}
                   embedded
                   showProgress={false}
-                  className="pointer-events-auto absolute inset-y-0 left-1/2 w-[72%] max-w-[30rem] -translate-x-1/2"
+                  className="pointer-events-auto absolute inset-y-0 left-[42%] w-[78%] max-w-[32rem] -translate-x-1/2"
                 />
               </ProfileBlock>
                 <div className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2">

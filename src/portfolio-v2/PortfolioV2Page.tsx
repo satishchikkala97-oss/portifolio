@@ -71,6 +71,8 @@ const themeStyles = {
     profileRing: "border-white/10",
     floatingCard:
       "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] text-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.32)]",
+    floatingTitle: "text-black/80",
+    floatingCaption: "text-black/70",
     visualLabel: "border-white/10 bg-black/25 text-white/55",
   },
   light: {
@@ -123,6 +125,8 @@ const themeStyles = {
     profileRing: "border-black/10",
     floatingCard:
       "border-black/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.7))] text-black/75 shadow-[0_18px_40px_rgba(93,72,37,0.14)]",
+    floatingTitle: "text-black/90",
+    floatingCaption: "text-black/60",
     visualLabel: "border-black/10 bg-white/65 text-black/50",
   },
 } as const satisfies Record<"dark" | "light", ThemePalette>;
@@ -488,7 +492,7 @@ const PortfolioV2Page = () => {
               </p> */}
               <h1
                 ref={headingRef}
-                className="font-display text-[4rem] uppercase leading-[0.88] tracking-[-0.06em] text-balance sm:text-[5.5rem] md:text-[7.1rem] lg:text-[8.8rem]"
+                className="font-display text-[3.35rem] uppercase leading-[0.92] tracking-[-0.045em] text-balance sm:text-[4.7rem] md:text-[5.8rem] lg:text-[6.9rem] xl:text-[7.6rem]"
               >
                 <span className="block overflow-hidden">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
@@ -605,10 +609,10 @@ const PortfolioV2Page = () => {
                       className="h-8 w-8 rounded-xl object-contain sm:h-10 sm:w-10"
                     />
                     <div className="min-w-[6rem]">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] sm:text-sm">
+                      <p className={cn("text-xs font-semibold uppercase tracking-[0.16em] sm:text-sm", styles.floatingTitle)}>
                         {tool.label}
                       </p>
-                      <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] opacity-70 sm:text-[10px]">
+                      <p className={cn("mt-0.5 text-[9px] uppercase tracking-[0.2em] sm:text-[10px]", styles.floatingCaption)}>
                         {tool.caption}
                       </p>
                     </div>

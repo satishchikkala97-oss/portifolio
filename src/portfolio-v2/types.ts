@@ -40,6 +40,8 @@ export type ThemePalette = {
   profileFrame: string;
   profileRing: string;
   floatingCard: string;
+  floatingTitle: string;
+  floatingCaption: string;
   visualLabel: string;
 };
 
