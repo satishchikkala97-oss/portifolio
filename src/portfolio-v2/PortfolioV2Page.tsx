@@ -73,7 +73,7 @@ const themeStyles = {
       "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] text-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.32)]",
     floatingTitle: "text-black/80",
     floatingCaption: "text-black/70",
-    visualLabel: "border-white/10 bg-black/25 text-white/55",
+    visualLabel: "border-white/10 bg-black/25 text-white/80",
   },
   light: {
     page: "bg-[#f5f1e8] text-[#151515]",
@@ -494,17 +494,17 @@ const PortfolioV2Page = () => {
                 ref={headingRef}
                 className="font-display text-[3.35rem] uppercase leading-[0.92] tracking-[-0.045em] text-balance sm:text-[4.7rem] md:text-[5.8rem] lg:text-[6.9rem] xl:text-[7.6rem]"
               >
-                <span className="block overflow-hidden">
+                <span className="block ">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
                   Hello I'm 
                   </span>
                 </span>
-                <span className="block overflow-hidden">
+                <span className="block ">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
                   Satish Chikkala
                   </span>
                 </span>
-                <span className="block overflow-hidden">
+                <span className="block ">
                   <span className="block [transform-origin:50%_100%]" data-gsap="title-line">
                   UI/UX Designer
                   </span>
