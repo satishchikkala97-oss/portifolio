@@ -537,7 +537,7 @@ const PortfolioV2Page = () => {
                   target="_blank"
                   rel="noreferrer noopener"
                   className={cn(
-                    "rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500 hover:border-black/20 hover:text-black",
+                    "rounded-full border px-5 py-3 text-sm uppercase tracking-[0.24em] transition-colors duration-500 hover:border-black/20 hover:border hover:border-white",
                     styles.visualLabel,
                   )}
                 >
