@@ -43,6 +43,8 @@ export type ThemePalette = {
   floatingTitle: string;
   floatingCaption: string;
   visualLabel: string;
+  /** Applied to featured-project tool logos so they read on dark backgrounds */
+  toolIcon: string;
 };
 
 export type ToolName = "Figma" | "Adobe XD" | "Photoshop" | "Lottie" | "HTML";

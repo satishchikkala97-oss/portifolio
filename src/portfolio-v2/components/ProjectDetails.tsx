@@ -62,7 +62,10 @@ const ProjectDetails = ({ project, styles, embedded = false }: ProjectDetailsPro
                   <img
                     src={toolIcons[tool]}
                     alt={tool}
-                    className="h-8 w-8 object-contain transition duration-300 group-hover:drop-shadow-[0_0_16px_rgba(201,145,52,0.42)]"
+                    className={cn(
+                      "h-8 w-8 object-contain transition duration-300 group-hover:drop-shadow-[0_0_16px_rgba(201,145,52,0.42)]",
+                      styles.toolIcon,
+                    )}
                   />
                 </div>
               </TooltipTrigger>

@@ -53,7 +53,7 @@ const themeStyles = {
     divider: "border-white/10",
     tag: "border-white/10 text-white/55",
     actionButton:
-      "border-white/15 text-white/70 hover:border-white/40 hover:text-white",
+      "border-white/15 text-white/70 hover:border-white/40 hover:text-white bg-[#c99134] ",
     serviceCard: "border-white/10 bg-white/[0.03]",
     serviceIndex: "text-white/35",
     footer: "border-t border-white/10 bg-[#0a0a0a]",
@@ -74,6 +74,7 @@ const themeStyles = {
     floatingTitle: "text-black/80",
     floatingCaption: "text-black/70",
     visualLabel: "border-white/10 bg-black/25 text-white/80",
+    toolIcon: "brightness-0 invert",
   },
   light: {
     page: "bg-[#f5f1e8] text-[#151515]",
@@ -107,7 +108,7 @@ const themeStyles = {
     divider: "border-black/10",
     tag: "border-black/10 text-black/55",
     actionButton:
-      "border-black/15 text-black/72 hover:border-black/35 hover:text-black",
+      "border-black/15 text-white/72 hover:border-black/35 hover:text-white bg-[#c99134] text-white",
     serviceCard: "border-black/10 bg-white/60",
     serviceIndex: "text-black/35",
     footer: "border-t border-black/10 bg-[#e8dece]",
@@ -128,6 +129,7 @@ const themeStyles = {
     floatingTitle: "text-black/90",
     floatingCaption: "text-black/60",
     visualLabel: "border-black/10 bg-white/65 text-black/50",
+    toolIcon: "",
   },
 } as const satisfies Record<"dark" | "light", ThemePalette>;
 
